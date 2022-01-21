@@ -11,8 +11,6 @@ const ImgUpload = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [imageAlt, setImageAlt] = useState('');
-  const [titleArea, setTitleArea] = useState('');
   const [error, setError] = useState(false);
   const [fileName, setFileName] = useState('');
 
@@ -66,30 +64,32 @@ const ImgUpload = () => {
   };
 
   const postHandler = () => {
-    console.log('imageUrl: ', fileName);
-    const datas = {
-      tag: tag,
-      title: title,
-      desc: description,
+    const headers = {
+      'Content-type': 'application/json; charset=UTF-8',
+      Accept: '*/*',
     };
-    const formData = new FormData();
-    formData.append('file', fileName);
-    formData.append(
-      'datas',
-      datas,
-      // new Blob([JSON.stringify(datas)], { type: 'application/json' }),
-    );
 
+    const formData = new FormData();
+    formData.append('image', fileName);
+    formData.append('title', title);
+    formData.append('desc', description);
+
+    axios.defaults.headers.post = null;
     axios
-      .post(`${process.env}`, formData, {
-        onUploadProgress: progressEvent => {
-          console.log(
-            'Upload Progress: ' +
-              Math.round((progressEvent.loaded / progressEvent.total) * 100) +
-              '%',
-          );
+      .post(
+        `http://localhost:8000/win`,
+        formData,
+        { headers },
+        {
+          onUploadProgress: progressEvent => {
+            console.log(
+              'Upload Progress: ' +
+                Math.round((progressEvent.loaded / progressEvent.total) * 100) +
+                '%',
+            );
+          },
         },
-      })
+      )
       .then(res => {
         console.log(res);
       });
