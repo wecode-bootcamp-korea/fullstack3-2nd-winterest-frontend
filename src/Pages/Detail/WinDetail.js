@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
 const WinDetail = () => {
   const params = useParams();
@@ -29,4 +30,5 @@ const WinDetail = () => {
   );
 };
 
+const Section = styled.section``;
 export default WinDetail;
