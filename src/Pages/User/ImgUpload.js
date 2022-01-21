@@ -79,14 +79,7 @@ const ImgUpload = () => {
       datas,
       // new Blob([JSON.stringify(datas)], { type: 'application/json' }),
     );
-    // formData.append('title', title);
-    // formData.append('description', description);
-    for (let key of formData.keys()) {
-      console.log('formData key: ', key);
-    }
-    for (let value of formData.values()) {
-      console.log('formData value: ', value);
-    }
+
     axios
       .post(`${process.env}`, formData, {
         onUploadProgress: progressEvent => {
