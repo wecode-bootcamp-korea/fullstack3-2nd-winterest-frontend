@@ -1,30 +1,60 @@
 import styled from 'styled-components';
+import { useState } from 'react';
+import Modal from '../Modal/Modal';
+import SignIn from '../Signs/SignIn';
+import SignUp from '../Signs/SignUp';
 
 function NavBarHome() {
   const onClick = () => {
     alert('Someday, coming soon.');
   };
+  const [modalOpen, setModalOpen] = useState(false);
+  const [changeForm, setChangeForm] = useState('signIn');
+  const openModal = e => {
+    if (e.target.name === 'signIn') {
+      setChangeForm('signIn');
+    } else {
+      setChangeForm('signUp');
+    }
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+  const transForm = () => {
+    setChangeForm('signUp');
+  };
 
   return (
-    <NavContainer>
-      <LogoWrapper>
-        <Icon alt="logo" src="favicon.png" />
-        <Title>Winterest</Title>
-      </LogoWrapper>
-      <NavWrapper>
-        <InfoWrapper>
-          <div onClick={onClick}>About</div>
-          <div onClick={onClick}>Business</div>
-          <div onClick={onClick}>Blog</div>
-        </InfoWrapper>
-        <ButtonWrapper>
-          <button className="login">Log in</button>
-        </ButtonWrapper>
-        <ButtonWrapper>
-          <button className="signup">Sign up</button>
-        </ButtonWrapper>
-      </NavWrapper>
-    </NavContainer>
+    <>
+      <NavContainer>
+        <LogoWrapper>
+          <Icon alt="logo" src="/images/favicon.png" />
+          <Title>Winterest</Title>
+        </LogoWrapper>
+        <NavWrapper>
+          <InfoWrapper>
+            <div onClick={onClick}>About</div>
+            <div onClick={onClick}>Business</div>
+            <div onClick={onClick}>Blog</div>
+          </InfoWrapper>
+          <ButtonWrapper>
+            <button className="login" name="signIn" onClick={openModal}>
+              Log in
+            </button>
+          </ButtonWrapper>
+          <ButtonWrapper>
+            <button className="signup" name="signUp" onClick={openModal}>
+              Sign up
+            </button>
+          </ButtonWrapper>
+        </NavWrapper>
+      </NavContainer>
+      <Modal open={modalOpen} close={closeModal}>
+        {changeForm === 'signIn' && <SignIn change={transForm} />}
+        {changeForm === 'signUp' && <SignUp />}
+      </Modal>
+    </>
   );
 }
 
@@ -88,9 +118,9 @@ const ButtonWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 54px;
+    width: 60px;
     height: 17px;
-    padding: 13px 12px 8px 12px;
+    padding: 11px 12px;
     border-radius: 20px;
     font-size: 16px;
     font-weight: 700;
