@@ -22,14 +22,12 @@ const ImgUpload = () => {
     ref.current.style.height = '46px';
     ref.current.style.height = ref.current.scrollHeight + 'px';
     setTitle(e.target.value);
-    console.log('Title:', title);
   };
 
   const descriptionAreaResize = e => {
     ref.current.style.height = '23px';
     ref.current.style.height = ref.current.scrollHeight + 'px';
     setDescription(e.target.value);
-    console.log('Description:', description);
   };
 
   const previewHandler = e => {
@@ -37,14 +35,6 @@ const ImgUpload = () => {
     const ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/png'];
     if (selected && ALLOWED_TYPES.includes(selected.type)) {
       setFileName(selected);
-      //FileReader Method
-      // let reader = new FileReader();
-      // reader.onloadend = () => {
-      //   setImageUrl(reader.result.toString());
-      // };
-      // reader.readAsDataURL(selected); //파일을 읽어 버퍼에 저장
-      // setImageUrl(selected);
-      // URL Method
       setImageUrl(URL.createObjectURL(selected));
     } else {
       console.log('Not Supported File.');
@@ -60,7 +50,6 @@ const ImgUpload = () => {
 
   const tagHandler = e => {
     setTag(e.target.value);
-    console.log('Tag: ', tag);
   };
 
   const postHandler = () => {
@@ -71,28 +60,25 @@ const ImgUpload = () => {
 
     const formData = new FormData();
     formData.append('image', fileName);
+    formData.append('tag', tag);
     formData.append('title', title);
     formData.append('desc', description);
 
     axios.defaults.headers.post = null;
-    axios
-      .post(
-        `http://localhost:8000/win`,
-        formData,
-        { headers },
-        {
-          onUploadProgress: progressEvent => {
-            console.log(
-              'Upload Progress: ' +
-                Math.round((progressEvent.loaded / progressEvent.total) * 100) +
-                '%',
-            );
-          },
+    axios.post(
+      `${process.env.REACT_APP_SERVER_HOST}/win`,
+      formData,
+      { headers },
+      {
+        onUploadProgress: progressEvent => {
+          console.log(
+            'Upload Progress: ' +
+              Math.round((progressEvent.loaded / progressEvent.total) * 100) +
+              '%',
+          );
         },
-      )
-      .then(res => {
-        console.log(res);
-      });
+      },
+    );
 
     return axios;
   };
@@ -116,12 +102,6 @@ const ImgUpload = () => {
               {imageUrl ? (
                 <>
                   <DelIcon onClick={delPreviewHandler}>
-                    {/* FileReader Method */}
-                    {/* <FaTrash
-                      className="trash"
-                      onClick={() => setImageUrl(null)}
-                    /> */}
-                    {/* URL Method */}
                     <FaTrash className="trash" />
                   </DelIcon>
                   <PreviewImg alt="sample" url={imageUrl} />

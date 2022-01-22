@@ -12,7 +12,7 @@ function Router() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/" element={<App />} />
-        <Route path="/win/winid" element={<WinDetail />} />
+        <Route path="/win/:winid" element={<WinDetail />} />
         <Route path="/win/user/upload" element={<ImgUpload />} />
       </Routes>
     </BrowserRouter>
