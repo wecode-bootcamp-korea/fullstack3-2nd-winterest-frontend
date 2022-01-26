@@ -36,7 +36,7 @@ function SignUp() {
   const signupLogic = () => {
     if (regexId.test(emailValue) && regexPw.test(pwValue)) {
       console.log(regexId.test(emailValue) && regexPw.test(pwValue));
-      fetch(`${process.env.REACT_APP_SERVER_HOST}/users/signup`, {
+      fetch(`${process.env.REACT_APP_SERVER_HOST}/user/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         mode: 'cors',
@@ -188,7 +188,7 @@ const NameInput = styled.input`
 const AlertFormContainer = styled.section`
   margin-top: 10px;
   color: rgb(250, 128, 114);
-  set
+  /* set */
 `;
 
 const AlertEmailContainer = styled.section`

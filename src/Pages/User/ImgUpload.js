@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled, { css } from 'styled-components';
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
@@ -15,18 +15,19 @@ const ImgUpload = () => {
   const [fileName, setFileName] = useState('');
 
   //useRef 변수에 할당
-  const ref = React.useRef();
+  const refTitle = React.useRef();
+  const refDesc = React.useRef();
 
   //Title textarea 자동 줄추가 및 스크롤 제거
   const titleAreaResize = e => {
-    ref.current.style.height = '46px';
-    ref.current.style.height = ref.current.scrollHeight + 'px';
+    refTitle.current.style.height = '46px';
+    refTitle.current.style.height = refTitle.current.scrollHeight + 'px';
     setTitle(e.target.value);
   };
 
   const descriptionAreaResize = e => {
-    ref.current.style.height = '23px';
-    ref.current.style.height = ref.current.scrollHeight + 'px';
+    refDesc.current.style.height = '23px';
+    refDesc.current.style.height = refDesc.current.scrollHeight + 'px';
     setDescription(e.target.value);
   };
 
@@ -55,14 +56,15 @@ const ImgUpload = () => {
   const postHandler = () => {
     const headers = {
       'Content-type': 'application/json; charset=UTF-8',
-      Accept: '*/*',
+      Authorization: sessionStorage.getItem('token'),
     };
 
     const formData = new FormData();
     formData.append('image', fileName);
-    formData.append('tag', tag);
+    formData.append('tagNames', tag);
     formData.append('title', title);
     formData.append('desc', description);
+    formData.append('boardId', 9);
 
     axios.defaults.headers.post = null;
     axios.post(
@@ -118,7 +120,7 @@ const ImgUpload = () => {
             </Preview>
             <Info>
               <TextTitle
-                ref={ref}
+                ref={refTitle}
                 onInput={titleAreaResize}
                 placeholder="제목 추가"
               />
@@ -127,7 +129,7 @@ const ImgUpload = () => {
                 &nbsp;&nbsp;TjPark
               </UserName>
               <TextDescription
-                ref={ref}
+                ref={refDesc}
                 onInput={descriptionAreaResize}
                 placeholder="사람들에게 회원님의 win에 대해 설명해 보세요"
               />

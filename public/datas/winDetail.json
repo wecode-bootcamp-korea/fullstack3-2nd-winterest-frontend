@@ -1,0 +1,29 @@
+{
+  "winDetail": {
+    "id": 2,
+    "title": "아이",
+    "description": "아이아이",
+    "imageUrl": "/images/IU-wallpaper.jpeg",
+    "createAt": "2022-01-24T11:52:25",
+    "updateAt": null,
+    "authorId": 1,
+    "author": "Tj",
+    "followCount": 20,
+    "isFollowing": true,
+    "isAuthor": true,
+    "isSaved": true,
+    "userNumber": 13143151,
+    "tags": [
+      "아이유",
+      "이지은",
+      "이지금",
+      "당근x1",
+      "앙기모띠",
+      "기모링",
+      "빡쎄",
+      "힘듦",
+      "당근x100"
+    ],
+    "boardName": "IU닷"
+  }
+}
