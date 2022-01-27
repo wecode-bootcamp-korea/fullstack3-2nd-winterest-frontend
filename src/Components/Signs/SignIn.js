@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function SignIn({ change }) {
+  console.log(SignIn);
   const [emailValue, setEmailValue] = useState('');
   const [pwValue, setPwValue] = useState('');
   const [isVisibility, setIsVisibility] = useState(false);
@@ -18,10 +20,32 @@ function SignIn({ change }) {
   const navigate = useNavigate();
 
   const goToList = () => {
-    navigate('/list');
+    navigate('/win');
+  };
+
+  const socialLogin = code => {
+    return function (dispatch, getState, { history }) {
+      axios({
+        method: 'GET',
+        url: `${process.env.REACT_APP_SERVER_HOST}/user/kakao?code=${code}`,
+      })
+        .then(res => {
+          console.log(res);
+          const ACCESS_TOKEN = res.data.accessToken;
+          localStorage.setItem('token', ACCESS_TOKEN);
+          history.replace('/win');
+        })
+        .catch(err => {
+          console.log('소셜로그인 에러', err);
+          window.alert('로그인에 실패하였습니다.');
+          history.replace('/');
+        });
+    };
   };
 
   const loginLogic = () => {
+    console.log('asdf');
+
     fetch(`${process.env.REACT_APP_SERVER_HOST}/user/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -33,6 +57,7 @@ function SignIn({ change }) {
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         if (data.message === 'INVALID_USER') {
           setIsVisibility(true);
         } else if (data.message === 'KEY_ERROR') {
@@ -81,7 +106,9 @@ function SignIn({ change }) {
             </LoginDefault>
           </DefaultLogin>
           <KakaoLoginWrapper>
-            <KakaoLogin type="button">카카오로 시작하기</KakaoLogin>
+            <KakaoLogin type="button" onClick={socialLogin}>
+              카카오로 시작하기
+            </KakaoLogin>
           </KakaoLoginWrapper>
           <SignUpButton>
             <h3 onClick={change}>아직 가입 안 하셨나요?</h3>
