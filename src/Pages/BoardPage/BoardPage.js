@@ -2,8 +2,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import NavBarMain from '../../Components/NavBar/NavBarMain';
+import Modal from '../../Components/Modal/Modal';
+import BoardModifyModal from '../../Components/BoardModifyModal/BoardModifyModal';
 
 function BoardPage() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   const [boardName, setBoardName] = useState('');
   const [boardDetail, setBoardDetail] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
@@ -55,7 +65,13 @@ function BoardPage() {
   return (
     <>
       <NavBarMain />
-      <BoardName>{boardName && boardName}</BoardName>
+      <BoardName>
+        {boardName && boardName}
+        <BoardModifyButton onClick={openModal}>수정</BoardModifyButton>
+      </BoardName>
+      <Modal open={modalOpen} close={closeModal}>
+        <BoardModifyModal />
+      </Modal>
       <PinQuantity>핀 {boardDetail && boardDetail.length}개</PinQuantity>
       <Container>
         {boardDetail &&
@@ -133,4 +149,14 @@ const Loading = styled.div`
 `;
 const LoadingBar = styled.img``;
 
+const BoardModifyButton = styled.button`
+  all: unset;
+  margin-top: -5px;
+  margin-left: 20px;
+  font-size: 10px;
+  border-radius: 24px;
+  background-color: red;
+  color: white;
+  padding: 12px 12px;
+`;
 export default BoardPage;
