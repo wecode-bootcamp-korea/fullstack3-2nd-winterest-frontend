@@ -30,8 +30,10 @@ function SignUp() {
   const regexPw = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#?!@$%^&*-]).{8}/;
 
   const goToList = () => {
-    navigate('/list');
+    navigate('/win');
   };
+
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=6973596e70c32c934b3d23792b4fed05&redirect_uri=http://localhost:3000/user/kakao&response_type=code`;
 
   const signupLogic = () => {
     if (regexId.test(emailValue) && regexPw.test(pwValue)) {
@@ -45,15 +47,42 @@ function SignUp() {
           email: emailValue,
           password: pwValue,
         }),
-      }).then(res => {
-        if (res.status === 201) {
-          alert('Winterest에 오신 것을 환영합니다😊');
-          goToList();
-        } else if (res.status === 409) {
-          setIsEmailVisibility(true);
-          setIsFormVisibility(false);
-        }
-      });
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.message === 'KEY_ERROR') {
+            setIsFormVisibility(true);
+            setIsEmailVisibility(false);
+          } else if (data.message === 'EXISTED_USER') {
+            setIsEmailVisibility(true);
+            setIsFormVisibility(false);
+          }
+
+          // if (data.message === 'CHECK YOUR EMAIL OR PASSWORD') {
+          //   setIsFormVisibility(true);
+          //   setIsEmailVisibility(false);
+          // }
+          else {
+            alert('Winterest에 오신 것을 환영합니다😊');
+            goToList();
+            console.log(data);
+            sessionStorage.setItem('token', data.token);
+            console.log(data.token);
+          }
+        })
+        .then(() => {
+          fetch(`${process.env.REACT_APP_SERVER_HOST}/board`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: sessionStorage.getItem('token'),
+            },
+            mode: 'cors',
+            body: JSON.stringify({
+              boardName: '보드',
+            }),
+          });
+        });
     } else {
       setIsFormVisibility(true);
       setIsEmailVisibility(false);
@@ -112,7 +141,9 @@ function SignUp() {
             </LoginDefault>
           </DefaultLogin>
           <KakaoLoginWrapper>
-            <KakaoLogin type="button">카카오로 시작하기</KakaoLogin>
+            <KakaoLogin type="button">
+              <a href={KAKAO_AUTH_URL}>카카오로 시작하기</a>
+            </KakaoLogin>
           </KakaoLoginWrapper>
         </Buttons>
       </LoginForm>
@@ -188,7 +219,6 @@ const NameInput = styled.input`
 const AlertFormContainer = styled.section`
   margin-top: 10px;
   color: rgb(250, 128, 114);
-  /* set */
 `;
 
 const AlertEmailContainer = styled.section`
@@ -237,7 +267,4 @@ const Heading2 = styled.h2`
 
 const DefaultLogin = styled.div``;
 
-// const SignUpButton = styled.div`
-//   margin-top: 50px;
-// `;
 export default SignUp;

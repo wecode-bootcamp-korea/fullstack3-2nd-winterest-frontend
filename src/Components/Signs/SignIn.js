@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
 function SignIn({ change }) {
+  console.log(SignIn);
   const [emailValue, setEmailValue] = useState('');
   const [pwValue, setPwValue] = useState('');
   const [isVisibility, setIsVisibility] = useState(false);
-
   const handleEmailInput = e => {
     setEmailValue(e.target.value);
   };
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=6973596e70c32c934b3d23792b4fed05&redirect_uri=http://localhost:3000/user/kakao&response_type=code`;
 
   const handlePwInput = e => {
     setPwValue(e.target.value);
@@ -18,10 +20,12 @@ function SignIn({ change }) {
   const navigate = useNavigate();
 
   const goToList = () => {
-    navigate('/list');
+    navigate('/win');
   };
 
   const loginLogic = () => {
+    console.log('asdf');
+
     fetch(`${process.env.REACT_APP_SERVER_HOST}/user/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -33,6 +37,7 @@ function SignIn({ change }) {
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         if (data.message === 'INVALID_USER') {
           setIsVisibility(true);
         } else if (data.message === 'KEY_ERROR') {
@@ -81,7 +86,9 @@ function SignIn({ change }) {
             </LoginDefault>
           </DefaultLogin>
           <KakaoLoginWrapper>
-            <KakaoLogin type="button">카카오로 시작하기</KakaoLogin>
+            <KakaoLogin type="button">
+              <a href={KAKAO_AUTH_URL}>카카오로 시작하기</a>
+            </KakaoLogin>
           </KakaoLoginWrapper>
           <SignUpButton>
             <h3 onClick={change}>아직 가입 안 하셨나요?</h3>
