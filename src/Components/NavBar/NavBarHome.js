@@ -108,6 +108,10 @@ const InfoWrapper = styled.div`
       text-decoration: underline;
     }
   }
+
+  @media only screen and (max-width: 650px) {
+    display: none;
+  }
 `;
 
 const ButtonWrapper = styled.div`
