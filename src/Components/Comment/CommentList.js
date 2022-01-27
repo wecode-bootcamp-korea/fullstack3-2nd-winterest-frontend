@@ -18,17 +18,19 @@ const CommentList = ({
 }) => {
   const [cmtContent, setCmtContent] = useState('');
 
+  const [cmtOpen, setCmtOpen] = useState(false);
+
   const userFirstText = name => {
     const firstText = name[0];
     return firstText;
   };
   const reCmtHandler = () => {
-    switch (reCmt) {
+    switch (cmtOpen) {
       case true:
-        setReCmt(false);
+        setCmtOpen(false);
         break;
       case false:
-        setReCmt(true);
+        setCmtOpen(true);
         break;
     }
   };
@@ -51,19 +53,34 @@ const CommentList = ({
       parentId: id,
       content: cmtContent,
     };
-    console.log('cmtData: ', cmtData);
     axios
       .post(`${process.env.REACT_APP_SERVER_HOST}/comment/${winId}`, cmtData, {
         headers,
       })
-      .then(function (response) {
-        console.log(response);
+      .then(res => {
+        if (res.status === 201) {
+          if (reCmt) setReCmt(false);
+          else setReCmt(true);
+          setCmtOpen(false);
+        }
       })
       .catch(function (error) {
         console.log(error);
       });
     return axios;
   };
+
+  const likeHandler = id => {
+    const data = {
+      commentId: id,
+    };
+    axios
+      .post(`${process.env.REACT_APP_SERVER_HOST}/comment-like`, data, {
+        headers,
+      })
+      .catch(error => console.log(error));
+  };
+
   return (
     <>
       <Comments>
@@ -80,7 +97,7 @@ const CommentList = ({
           </CommentInfo>
           <CommentFunctions>
             <LeftFunction>
-              <AiFillHeart className="heart" />
+              <AiFillHeart className="heart" onClick={likeHandler(data.id)} />
               <span className="heartCount">
                 {data.likeCount == 0 ? null : data.likeCount}
               </span>
@@ -99,7 +116,7 @@ const CommentList = ({
           </CommentFunctions>
         </InfoAndFunction>
       </Comments>
-      {reCmt ? (
+      {cmtOpen ? (
         <ReCommentArea>
           <LogoAndComment>
             <ReUserLogo>{userFirstText(`${data.author}`)}</ReUserLogo>

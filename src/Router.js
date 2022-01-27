@@ -13,9 +13,9 @@ function Router() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/win/:winid" element={<WinDetail />} />
+        <Route path="/win/:winId" element={<WinDetail />} />
         <Route path="/win/user/upload" element={<ImgUpload />} />
-        <Route path="/win/user/:userNumber" element={<User />} />
+        <Route path="/user/:userNumber" element={<User />} />
         <Route path="/user/kakao" element={<KakaoAuth />} />
         <Route path="/win" element={<List />} />
         <Route path="/board/:boardId" element={<BoardPage />} />

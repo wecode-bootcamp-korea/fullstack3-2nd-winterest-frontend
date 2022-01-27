@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 const WinAddComment = ({ reCmt, setReCmt, winId }) => {
-  const [addCmtState, SetAddCmtState] = useState(false);
+  const [addCmtState, setAddCmtState] = useState(false);
   const [cmtContent, setCmtContent] = useState('');
 
   const addCmtHandler = () => {
-    return SetAddCmtState(true);
+    return setAddCmtState(true);
   };
 
   const userFirstText = author => {
@@ -16,7 +16,7 @@ const WinAddComment = ({ reCmt, setReCmt, winId }) => {
   };
 
   const cancelHandler = () => {
-    return SetAddCmtState(false);
+    return setAddCmtState(false);
   };
 
   const postHandler = () => {
@@ -31,7 +31,14 @@ const WinAddComment = ({ reCmt, setReCmt, winId }) => {
       .post(`${process.env.REACT_APP_SERVER_HOST}/comment/${winId}`, data, {
         headers,
       })
-      .then(setReCmt(false));
+      .then(res => {
+        if (res.status === 201) {
+          if (reCmt) setReCmt(false);
+          else setReCmt(true);
+          setAddCmtState(false);
+          setCmtContent('');
+        }
+      });
   };
 
   const commentContentHandler = e => {
@@ -43,6 +50,7 @@ const WinAddComment = ({ reCmt, setReCmt, winId }) => {
       <BeforeAddText>
         <UserLogo parent>{userFirstText('PineDelo')}</UserLogo>
         <CommentArea
+          value={cmtContent}
           onChange={commentContentHandler}
           CommentState={addCmtState}
           onClick={addCmtHandler}

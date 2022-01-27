@@ -5,10 +5,16 @@ import { IoIosArrowDown } from 'react-icons/io';
 
 const MyBoardList = () => {
   const [boardList, setBoardList] = useState({});
+  const headers = {
+    Authorization: sessionStorage.getItem('token'),
+  };
   useEffect(() => {
-    axios.get('/datas/board.json').then(function (res) {
-      setBoardList(res.data);
-    });
+    axios
+      // .get('/datas/board.json')
+      .get(`${process.env.REACT_APP_SERVER_HOST}/board`, { headers })
+      .then(function (res) {
+        setBoardList(res.data);
+      });
   }, []);
   return (
     <BoardName>

@@ -1,6 +1,30 @@
+import axios from 'axios';
+import { useState } from 'react';
 import styled from 'styled-components';
 
-function BoardModifyModal() {
+function BoardModifyModal({ setModalOpen, boardName, boardId }) {
+  const [newBoard, setNewBoard] = useState();
+
+  const headers = {
+    'Content-type': 'application/json; charset=UTF-8',
+    Authorization: sessionStorage.getItem('token'),
+  };
+
+  const data = {
+    boardId: boardId,
+    boardName: newBoard,
+  };
+
+  const newBoardName = e => {
+    setNewBoard(e.target.value);
+  };
+
+  const completeHandler = () => {
+    axios
+      .put(`${process.env.REACT_APP_SERVER_HOST}/board`, data, { headers })
+      .then(setModalOpen(false));
+  };
+
   return (
     <FullBoardContainer>
       <Title>보드 수정</Title>
@@ -13,6 +37,7 @@ function BoardModifyModal() {
                 className="BoardTextInput"
                 type="text"
                 placeholder="보드명"
+                onChange={newBoardName}
               ></input>
             </div>
           </div>
@@ -24,7 +49,9 @@ function BoardModifyModal() {
         <div>
           <h4>이 보드와 모든 핀을 영구적으로 삭제합니다.</h4>
           <h4>이 작업은 취소할 수 없습니다!</h4>
-          <button type="button">완료</button>
+          <button type="button" onClick={completeHandler}>
+            완료
+          </button>
         </div>
       </DeleteContainer>
     </FullBoardContainer>

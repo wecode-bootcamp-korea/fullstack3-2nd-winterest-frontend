@@ -9,9 +9,13 @@ import { BiCopy } from 'react-icons/bi';
 import Comment from '../../Components/Comment/Comment';
 import axios from 'axios';
 import DetailModal from './DetailModal/DetailModal';
+import BoardModal from '../../Components/BoardModal/BoardModal';
+import NavBarMain from '../../Components/NavBar/NavBarMain';
 
 const WinDetail = () => {
   const params = useParams();
+  // const history = useHistory();
+
   const [winData, SetWinData] = useState('');
 
   const [winModal, setWinModal] = useState(false);
@@ -21,12 +25,20 @@ const WinDetail = () => {
 
   const [isSaved, setIsSaved] = useState(false);
 
-  const [modalTitle, setModalTitle] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [followCnt, setFollowCnt] = useState(0);
+  const [isFollowed, setIsFollowed] = useState();
 
   const downloadImage = imgUrl => {
     const imgName = imgUrl.split('/')[2];
     saveAs(imgUrl, imgName); // Put your image url here.
     setWinModal(false);
+  };
+
+  const boardModalHandler = () => {
+    if (isOpen) return setIsOpen(false);
+    else return setIsOpen(true);
   };
 
   const modifyWinHandler = () => {
@@ -46,13 +58,13 @@ const WinDetail = () => {
     setModifyModal(true);
   };
 
-  const saveWinHandler = () => {
-    const headers = {
-      'Content-type': 'application/json; charset=UTF-8',
-      Authorization: sessionStorage.getItem('token'),
-    };
-    axios.post(`${process.env.REACT_APP_SERVER_HOST}/win`, { headers });
-  };
+  // const saveWinHandler = () => {
+  //   const headers = {
+  //     'Content-type': 'application/json; charset=UTF-8',
+  //     Authorization: sessionStorage.getItem('token'),
+  //   };
+  //   axios.post(`${process.env.REACT_APP_SERVER_HOST}/win`, { headers });
+  // };
 
   const followingHandler = () => {
     const headers = {
@@ -63,9 +75,21 @@ const WinDetail = () => {
     const followData = {
       followingId: winData.authorId,
     };
-    axios.post(`${process.env.REACT_APP_SERVER_HOST}/follow`, followData, {
-      headers,
-    });
+    axios
+      .post(`${process.env.REACT_APP_SERVER_HOST}/follow`, followData, {
+        headers,
+      })
+      .then(() => {
+        if (isFollowed) {
+          // console.log('true: ', followCnt + 1, isFollowed);
+          setFollowCnt(followCnt - 1);
+          setIsFollowed(false);
+        } else {
+          setFollowCnt(followCnt + 1);
+          setIsFollowed(true);
+          // console.log('false: ', followCnt, isFollowed);
+        }
+      });
   };
 
   const linkToTag = tagName => {
@@ -73,7 +97,7 @@ const WinDetail = () => {
   };
 
   const LinkToUser = num => {
-    return `/win/user/${num}`;
+    return `/user/${num}`;
   };
 
   useEffect(() => {
@@ -81,28 +105,42 @@ const WinDetail = () => {
       Authorization: sessionStorage.getItem('token'),
     };
     axios
-      .get('/datas/winDetail.json')
-      // .get(`${process.env.REACT_APP_SERVER_HOST}/win/${params.winId}`, {headers})
+      // .get('/datas/winDetail.json')
+      .get(`${process.env.REACT_APP_SERVER_HOST}/win/${params.winId}`, {
+        headers,
+      })
       .then(function (res) {
         SetWinData(res.data.winDetail);
         setIsAuthor(res.data.winDetail.isAuthor);
         setIsSaved(res.data.winDetail.isSaved);
+        setFollowCnt(res.data.winDetail.followerCount);
+        setIsFollowed(res.data.winDetail.isFollowing);
       });
-  }, []);
+  }, [modifyModal, isOpen]);
 
   return (
     <Section>
+      <NavBarMain />
       {modifyModal ? (
-        <DetailModal winData={winData} setModifyModal={setModifyModal} />
+        <DetailModal
+          winData={winData}
+          modifyModal={modifyModal}
+          setModifyModal={setModifyModal}
+        />
       ) : null}
       <Main>
         <Aside>
-          <FaArrowLeft className="goBack" />
+          <FaArrowLeft
+            // onClick={() => {
+            //   history.goBack();
+            // }}
+            className="goBack"
+          />
         </Aside>
         <Article>
           {winModal ? (
             <WinFunction>
-              {isSaved ? (
+              {isSaved.length !== 0 ? (
                 <>
                   {isAuthor ? (
                     <ModifyWin
@@ -132,6 +170,14 @@ const WinDetail = () => {
             <DetailImg alt="ImgAlt" src={winData.imageUrl} />
           </ImgSection>
           <FunctionSection>
+            {isOpen === true ? (
+              <Model>
+                <button className="close" onClick={boardModalHandler}>
+                  &times;
+                </button>
+                <BoardModal winId={winData.id} />
+              </Model>
+            ) : null}
             <IconsAndBoard>
               <Icons>
                 <BiDotsHorizontalRounded
@@ -147,44 +193,42 @@ const WinDetail = () => {
               </Icons>
               <MyBoard>
                 <SaveBtn
-                  isSaved={isSaved ? 'black' : 'red'}
-                  onClick={() => saveWinHandler}
+                  isSaved={isSaved.length === 0 ? 'red' : 'black'}
+                  onClick={boardModalHandler}
                 >
-                  {isSaved ? '저장됨' : '저장'}
+                  {isSaved.length === 0 ? '저장' : '저장됨'}
                 </SaveBtn>
               </MyBoard>
             </IconsAndBoard>
             <ImgTitle>{winData.title}</ImgTitle>
             <TagArea>
               {winData.tags?.map(tagName => (
-                <Link to={linkToTag(tagName)} className="linkTo">
-                  <ImgTag>{tagName}</ImgTag>
+                <Link to={linkToTag(tagName.name)} className="linkTo">
+                  <ImgTag>{tagName.name}</ImgTag>
                 </Link>
               ))}
             </TagArea>
             <UserAndFollow>
               <ProfileAndFollower>
-                <Link to={LinkToUser(winData.userNumber)}>
+                <Link to={LinkToUser(winData.userNumber)} className="userlogo">
                   <UserLogo parent>
                     {winData.author && winData.author[0]}
                   </UserLogo>
                 </Link>
                 <UserInfo>
                   <UserId>{winData.author}</UserId>
-                  <Followers>팔로워 {winData.followCount}명</Followers>
+                  <Followers>팔로워 {followCnt}명</Followers>
                 </UserInfo>
               </ProfileAndFollower>
               <FollowBtn
                 onClick={followingHandler}
-                isFollowing={
-                  winData.isFollowing ? 'black' : 'rgb(237, 237, 237)'
-                }
-                color={winData.isFollowing ? 'white' : 'black'}
+                isFollowing={isFollowed ? 'black' : 'rgb(237, 237, 237)'}
+                color={isFollowed ? 'white' : 'black'}
               >
-                {winData.isFollowing ? '팔로잉' : '팔로우'}
+                {isFollowed ? '팔로잉' : '팔로우'}
               </FollowBtn>
             </UserAndFollow>
-            <Comment winId={winData.id} />
+            <Comment winId={params.winId} />
           </FunctionSection>
         </Article>
       </Main>
@@ -267,6 +311,22 @@ const ModifyBoard = styled.p`
 
 const ImgDownLoad = styled.p`
   ${TagInModal}
+`;
+
+// 모달창
+const Model = styled.div`
+  background: white;
+  position: absolute;
+  padding: 20px 16px;
+  margin: 0 auto;
+  border-radius: 30px;
+  width: 320px;
+  z-index: 5000;
+  top: 15%;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  height: 498px;
 `;
 
 const ImgSection = styled.section``;
@@ -398,6 +458,10 @@ const UserAndFollow = styled.section`
 
 const ProfileAndFollower = styled.section`
   display: flex;
+  .userlogo {
+    text-decoration: none;
+    color: black;
+  }
 `;
 
 const UserLogo = styled.section`

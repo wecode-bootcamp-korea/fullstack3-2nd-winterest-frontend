@@ -11,6 +11,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 const Comment = ({ winId }) => {
   //댓글 fold & unfold
   const [cmtState, setCmtState] = useState(true);
+
   const [cmtList, setCmtList] = useState({});
   const [reCmt, setReCmt] = useState(false);
 
@@ -20,8 +21,8 @@ const Comment = ({ winId }) => {
 
   useEffect(() => {
     axios
-      .get('/datas/comments.json')
-      // .get(`${process.env.REACT_APP_SERVER_HOST}/comment/${winId}`, { headers })
+      // .get('/datas/comments.json')
+      .get(`${process.env.REACT_APP_SERVER_HOST}/comment/${winId}`, { headers })
       .then(function (res) {
         setCmtList(res.data);
         console.log(cmtList);
