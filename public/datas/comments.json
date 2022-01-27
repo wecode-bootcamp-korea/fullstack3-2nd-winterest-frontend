@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "id": 1,
+      "parentId": null,
+      "content": "hi",
+      "likeCount": 1,
+      "createdAt": "2022-01-24T17:47:41.814+00:00",
+      "updatedAt": null,
+      "authorId": 2,
+      "winId": 2,
+      "author": "Taeyoeng",
+      "isLiked": false,
+      "parentAuthor": null,
+      "comments": [
+        {
+          "id": 4,
+          "parentId": 1,
+          "content": "hi3",
+          "likeCount": 0,
+          "createdAt": "2022-01-24T17:48:04.903+00:00",
+          "updatedAt": null,
+          "authorId": 2,
+          "winId": 2,
+          "author": "Taeyoeng",
+          "isLiked": false,
+          "parentAuthor": "Taeyoeng",
+          "comments": [
+            {
+              "id": 6,
+              "parentId": 4,
+              "content": "hi5",
+              "likeCount": 3,
+              "createdAt": "2022-01-24T17:48:21.992+00:00",
+              "updatedAt": null,
+              "authorId": 2,
+              "winId": 2,
+              "author": "Taeyoeng",
+              "isLiked": false,
+              "parentAuthor": "Taeyoeng",
+              "comments": [
+                {
+                  "id": 7,
+                  "parentId": 6,
+                  "content": "hi6",
+                  "likeCount": 0,
+                  "createdAt": "2022-01-24T17:48:34.521+00:00",
+                  "updatedAt": null,
+                  "authorId": 2,
+                  "winId": 2,
+                  "author": "Taeyoeng",
+                  "isLiked": false,
+                  "parentAuthor": "Taeyoeng",
+                  "comments": [
+                    {
+                      "id": 16,
+                      "parentId": 7,
+                      "content": "hello",
+                      "likeCount": 0,
+                      "createdAt": "2022-01-24T19:04:44.045+00:00",
+                      "updatedAt": null,
+                      "authorId": 3,
+                      "winId": 2,
+                      "author": "taejun",
+                      "isLiked": false,
+                      "parentAuthor": "Taeyoeng",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "parentId": 1,
+          "content": "hi4",
+          "likeCount": 0,
+          "createdAt": "2022-01-24T17:48:09.881+00:00",
+          "updatedAt": null,
+          "authorId": 2,
+          "winId": 2,
+          "author": "Taeyoeng",
+          "isLiked": false,
+          "parentAuthor": "Taeyoeng",
+          "comments": [
+            {
+              "id": 15,
+              "parentId": 5,
+              "content": "hello",
+              "likeCount": 0,
+              "createdAt": "2022-01-24T19:04:41.318+00:00",
+              "updatedAt": null,
+              "authorId": 3,
+              "winId": 2,
+              "author": "taejun",
+              "isLiked": false,
+              "parentAuthor": "Taeyoeng",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "parentId": 1,
+          "content": "hello",
+          "likeCount": 0,
+          "createdAt": "2022-01-24T19:04:38.730+00:00",
+          "updatedAt": null,
+          "authorId": 3,
+          "winId": 2,
+          "author": "taejun",
+          "isLiked": false,
+          "parentAuthor": "Taeyoeng",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "parentId": null,
+      "content": "hi2",
+      "likeCount": 0,
+      "createdAt": "2022-01-24T17:47:48.931+00:00",
+      "updatedAt": null,
+      "authorId": 2,
+      "winId": 2,
+      "author": "Taeyoeng",
+      "isLiked": false,
+      "parentAuthor": null,
+      "comments": []
+    },
+    {
+      "id": 3,
+      "parentId": null,
+      "content": "hi3",
+      "likeCount": 0,
+      "createdAt": "2022-01-24T17:47:52.457+00:00",
+      "updatedAt": null,
+      "authorId": 2,
+      "winId": 2,
+      "author": "Taeyoeng",
+      "isLiked": false,
+      "parentAuthor": null,
+      "comments": []
+    },
+    {
+      "id": 8,
+      "parentId": null,
+      "content": "hi7",
+      "likeCount": 0,
+      "createdAt": "2022-01-24T17:48:40.751+00:00",
+      "updatedAt": null,
+      "authorId": 2,
+      "winId": 2,
+      "author": "Taeyoeng",
+      "isLiked": false,
+      "parentAuthor": null,
+      "comments": []
+    },
+    {
+      "id": 9,
+      "parentId": null,
+      "content": "hi8",
+      "likeCount": 0,
+      "createdAt": "2022-01-24T17:48:43.714+00:00",
+      "updatedAt": null,
+      "authorId": 2,
+      "winId": 2,
+      "author": "Taeyoeng",
+      "isLiked": false,
+      "parentAuthor": null,
+      "comments": []
+    },
+    {
+      "id": 10,
+      "parentId": null,
+      "content": "hi9",
+      "likeCount": 0,
+      "createdAt": "2022-01-24T17:48:46.848+00:00",
+      "updatedAt": null,
+      "authorId": 2,
+      "winId": 2,
+      "author": "Taeyoeng",
+      "isLiked": false,
+      "parentAuthor": null,
+      "comments": [
+        {
+          "id": 17,
+          "parentId": 10,
+          "content": "hello",
+          "likeCount": 0,
+          "createdAt": "2022-01-24T19:04:46.823+00:00",
+          "updatedAt": null,
+          "authorId": 3,
+          "winId": 2,
+          "author": "taejun",
+          "isLiked": false,
+          "parentAuthor": "Taeyoeng",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "parentId": null,
+      "content": "hi10",
+      "likeCount": 0,
+      "createdAt": "2022-01-24T17:48:50.291+00:00",
+      "updatedAt": null,
+      "authorId": 2,
+      "winId": 2,
+      "author": "Taeyoeng",
+      "isLiked": false,
+      "parentAuthor": null,
+      "comments": []
+    },
+    {
+      "id": 13,
+      "parentId": null,
+      "content": "hello",
+      "likeCount": 0,
+      "createdAt": "2022-01-24T19:04:29.059+00:00",
+      "updatedAt": null,
+      "authorId": 3,
+      "winId": 2,
+      "author": "taejun",
+      "isLiked": false,
+      "parentAuthor": null,
+      "comments": []
+    }
+  ]
+}
