@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 function NavBarMain() {
   const [input, setInput] = useState('');
+  const [inputEnter, setInputEnter] = useState(false);
 
   const handleTagInput = event => {
     setInput(event.target.value);
@@ -13,10 +14,11 @@ function NavBarMain() {
 
   const handleEnter = event => {
     if (event.key === 'Enter') {
+      inputEnter === false ? setInputEnter(true) : setInputEnter(false);
       if (input) {
-        navigate(`/list?tagname=${input}`);
+        navigate(`/win?tagname=${input}`);
       } else {
-        navigate(`/list`);
+        navigate(`/win`);
       }
     }
   };
@@ -28,7 +30,7 @@ function NavBarMain() {
           <img className="logo" alt="logo" src="./images/favicon.png" />
         </div>
         <div className="homeWrapper">
-          <Link to="/navbarmain" className="home">
+          <Link to="/win" className="home">
             홈
           </Link>
         </div>
@@ -125,6 +127,7 @@ const HomeIconWrapper = styled.div`
 const SearchWrapper = styled.div`
   display: flex;
   padding: 0 8px 0 20px;
+  /* min-width: 407px; */
   flex-grow: 1;
 
   .search {
