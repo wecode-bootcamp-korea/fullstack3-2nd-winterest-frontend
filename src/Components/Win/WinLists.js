@@ -81,7 +81,7 @@ const ClosingButton = styled.button`
   top: 5%;
   right: 7%;
   border-radius: 20px;
-  background-color: rgb(0 217 255);
+  background-color: red;
   color: white;
   border: none;
   width: 70px;
