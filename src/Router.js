@@ -6,6 +6,7 @@ import ImgUpload from './Pages/User/ImgUpload';
 import User from './Pages/User/User';
 import KakaoAuth from './KakaoAuth';
 import List from './Pages/List/List';
+import BoardPage from './Pages/BoardPage/BoardPage';
 
 function Router() {
   return (
@@ -17,6 +18,7 @@ function Router() {
         <Route path="/win/user/:userNumber" element={<User />} />
         <Route path="/user/kakao" element={<KakaoAuth />} />
         <Route path="/win" element={<List />} />
+        <Route path="/board/:boardId" element={<BoardPage />} />
       </Routes>
     </BrowserRouter>
   );
