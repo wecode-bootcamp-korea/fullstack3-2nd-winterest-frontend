@@ -1,16 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 function NavBarMain() {
+  const navigate = useNavigate();
   const [input, setInput] = useState('');
   const [inputEnter, setInputEnter] = useState(false);
+  const [userNumber, setUserNumber] = useState('');
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_SERVER_HOST}/user/info`, {
+      headers: { Authorization: sessionStorage.getItem('token') },
+      mode: 'cors',
+    })
+      .then(res => res.json())
+      .then(data => {
+        setUserNumber(data.userNumber);
+      });
+  }, []);
+
+  const handleClick = () => {
+    navigate(`/user/${userNumber}`);
+  };
 
   const handleTagInput = event => {
     setInput(event.target.value);
   };
-
-  const navigate = useNavigate();
 
   const handleEnter = event => {
     if (event.key === 'Enter') {
@@ -66,7 +81,7 @@ function NavBarMain() {
         <div className="infoIcon">
           <img className="icon" alt="chatIcon" src="./images/navbar/chat.png" />
         </div>
-        <div className="infoIcon">
+        <div className="infoIcon" onClick={handleClick}>
           <img className="icon" alt="userIcon" src="./images/navbar/user.png" />
         </div>
       </InfoWrapper>
