@@ -11,6 +11,7 @@ function NavBarHome() {
   const [modalOpen, setModalOpen] = useState(false);
   const [changeForm, setChangeForm] = useState('signIn');
   const openModal = e => {
+    console.log(e);
     if (e.target.name === 'signIn') {
       setChangeForm('signIn');
     } else {
@@ -63,11 +64,13 @@ export default NavBarHome;
 const NavContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  position: fixed;
+  /* position: fixed; */
+  z-index: 990;
   align-items: center;
   height: 80px;
   width: 100%;
-  background-color: ${props => props.theme.background};
+  /* background-color: ${props => props.theme.background}; */
+  background-color: white;
 `;
 
 const LogoWrapper = styled.div`
@@ -124,7 +127,7 @@ const ButtonWrapper = styled.div`
     align-items: center;
     width: 60px;
     height: 17px;
-    padding: 11px 12px;
+    padding: 11px 12px 11px 12px;
     border-radius: 20px;
     font-size: 16px;
     font-weight: 700;
