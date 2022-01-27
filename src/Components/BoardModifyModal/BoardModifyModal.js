@@ -13,28 +13,11 @@ function BoardModifyModal() {
                 className="BoardTextInput"
                 type="text"
                 placeholder="보드명"
-                // onChange={handleTagInput}
-                // onKeyPress={handleEnter}
               ></input>
             </div>
           </div>
         </div>
       </BoardWrapper>
-
-      <Description>설명</Description>
-      <BoardExplain>
-        <div className="Board">
-          <div className="BoardDetail">
-            <div className="BoardText">
-              <input
-                className="BoardTextInput"
-                type="text"
-                placeholder="무엇에 관한 보드인가요?"
-              ></input>
-            </div>
-          </div>
-        </div>
-      </BoardExplain>
       <DeleteContainer>
         <h3>작업</h3>
         <h1>보드 삭제</h1>
@@ -56,6 +39,7 @@ const Title = styled.div`
   display: flex;
   justify-content: center;
   text-align: center;
+  margin-top: -30px;
   font-weight: 700;
   font-size: 30px;
 `;
@@ -107,54 +91,6 @@ const BoardWrapper = styled.div`
   }
 `;
 
-const Description = styled.div`
-  color: black;
-  font-size: 20px;
-  margin-left: 8%;
-  margin-top: 3%;
-  margin-bottom: 3%;
-`;
-
-const BoardExplain = styled.div`
-  display: flex;
-  padding: 0 8px 0 20px;
-  flex-grow: 1;
-  .Board {
-    display: flex;
-    align-items: center;
-    height: 48px;
-    flex-grow: 1;
-    border-radius: 24px;
-    background-color: #efefef;
-  }
-
-  .BoardDetail {
-    display: flex;
-    align-items: center;
-    position: relative;
-    height: 100%;
-    width: 100%;
-    min-height: 0;
-    min-width: 0;
-    padding: 0 0 0 16px;
-  }
-
-  .BoardText {
-    display: block;
-    height: 100%;
-    width: 90%;
-    min-height: 0;
-    min-width: 0;
-  }
-
-  .BoardTextInput {
-    all: unset;
-    width: 100%;
-    vertical-align: middle;
-    font-size: 16px;
-    line-height: 50px;
-  }
-`;
 const DeleteContainer = styled.div`
   margin-top: 3%;
   margin-left: 8%;
