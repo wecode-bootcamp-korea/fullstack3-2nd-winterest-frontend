@@ -74,7 +74,7 @@ function List() {
                 key={win.id}
                 content={win.userName}
                 winId={win.id}
-                // winLike={win.}
+                userNumber={win.userNumber}
               />
             );
           })}

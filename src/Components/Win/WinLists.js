@@ -4,7 +4,7 @@ import LikeButton from '../../Components/Likes/likeButton';
 import BoardModal from '../BoardModal/BoardModal';
 import { useNavigate } from 'react-router-dom';
 
-function WinLists({ src, content, winId }) {
+function WinLists({ src, content, winId, userNumber }) {
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => {
     setIsOpen(!isOpen);
@@ -12,6 +12,10 @@ function WinLists({ src, content, winId }) {
   const navigate = useNavigate();
   const goToDetail = () => {
     navigate(`/win/${winId}`);
+  };
+
+  const goToUser = () => {
+    navigate(`/user/${userNumber}`);
   };
 
   return (
@@ -46,7 +50,7 @@ function WinLists({ src, content, winId }) {
           </Model>
         ) : null}
       </ImgContainer>
-      <h3>{content}</h3>
+      <h3 onClick={goToUser}>{content}</h3>
       <LikeButton />
     </Figure>
   );
