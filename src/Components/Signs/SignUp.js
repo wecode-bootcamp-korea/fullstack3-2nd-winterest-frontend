@@ -33,7 +33,7 @@ function SignUp() {
     navigate('/win');
   };
 
-  const kauth = `https://kauth.kakao.com/oauth/authorize?client_id='6973596e70c32c934b3d23792b4fed05'&redirect_uri='http://localhost:3000/user/kakao'&response_type=code`;
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=6973596e70c32c934b3d23792b4fed05&redirect_uri=http://localhost:3000/user/kakao&response_type=code`;
 
   const signupLogic = () => {
     if (regexId.test(emailValue) && regexPw.test(pwValue)) {
@@ -141,7 +141,9 @@ function SignUp() {
             </LoginDefault>
           </DefaultLogin>
           <KakaoLoginWrapper>
-            <KakaoLogin type="button">카카오로 시작하기</KakaoLogin>
+            <KakaoLogin type="button">
+              <a href={KAKAO_AUTH_URL}>카카오로 시작하기</a>
+            </KakaoLogin>
           </KakaoLoginWrapper>
         </Buttons>
       </LoginForm>

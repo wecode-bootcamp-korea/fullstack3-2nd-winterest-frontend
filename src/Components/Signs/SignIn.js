@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React from 'react';
 
 function SignIn({ change }) {
   console.log(SignIn);
   const [emailValue, setEmailValue] = useState('');
   const [pwValue, setPwValue] = useState('');
   const [isVisibility, setIsVisibility] = useState(false);
-
   const handleEmailInput = e => {
     setEmailValue(e.target.value);
   };
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=6973596e70c32c934b3d23792b4fed05&redirect_uri=http://localhost:3000/user/kakao&response_type=code`;
 
   const handlePwInput = e => {
     setPwValue(e.target.value);
@@ -21,26 +21,6 @@ function SignIn({ change }) {
 
   const goToList = () => {
     navigate('/win');
-  };
-
-  const socialLogin = code => {
-    return function (dispatch, getState, { history }) {
-      axios({
-        method: 'GET',
-        url: `${process.env.REACT_APP_SERVER_HOST}/user/kakao?code=${code}`,
-      })
-        .then(res => {
-          console.log(res);
-          const ACCESS_TOKEN = res.data.accessToken;
-          localStorage.setItem('token', ACCESS_TOKEN);
-          history.replace('/win');
-        })
-        .catch(err => {
-          console.log('소셜로그인 에러', err);
-          window.alert('로그인에 실패하였습니다.');
-          history.replace('/');
-        });
-    };
   };
 
   const loginLogic = () => {
@@ -106,8 +86,8 @@ function SignIn({ change }) {
             </LoginDefault>
           </DefaultLogin>
           <KakaoLoginWrapper>
-            <KakaoLogin type="button" onClick={socialLogin}>
-              카카오로 시작하기
+            <KakaoLogin type="button">
+              <a href={KAKAO_AUTH_URL}>카카오로 시작하기</a>
             </KakaoLogin>
           </KakaoLoginWrapper>
           <SignUpButton>
