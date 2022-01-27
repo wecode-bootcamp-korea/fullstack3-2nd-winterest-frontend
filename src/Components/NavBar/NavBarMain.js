@@ -125,7 +125,6 @@ const HomeIconWrapper = styled.div`
 const SearchWrapper = styled.div`
   display: flex;
   padding: 0 8px 0 20px;
-  min-width: 407px;
   flex-grow: 1;
 
   .search {

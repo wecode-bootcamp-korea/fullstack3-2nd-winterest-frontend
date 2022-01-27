@@ -21,8 +21,8 @@ const KakaoAuth = () => {
         code: code,
       }),
     })
-      .then((res) => res.json())
-      .then((data) =>
+      .then(res => res.json())
+      .then(data =>
         fetch(`${process.env.REACT_APP_SERVER_HOST}/user/kakao`, {
           method: 'GET',
           headers: {
@@ -30,9 +30,9 @@ const KakaoAuth = () => {
             Authorization: data.access_token,
           },
         })
-          .then((res) => res.json())
-          .then((data) => sessionStorage.setItem('token', data.accessToken))
-          .then(navigate('/win'))
+          .then(res => res.json())
+          .then(data => sessionStorage.setItem('token', data.accessToken))
+          .then(navigate('/win')),
       );
   }, [code]);
 

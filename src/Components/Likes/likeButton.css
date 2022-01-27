@@ -1,0 +1,24 @@
+.likieButton {
+  margin-top: 10px;
+  display: inline;
+}
+.button {
+  cursor: pointer;
+  transition: transform 300ms ease;
+  font-size: 20px;
+  text-align: center;
+}
+
+.button:hover {
+  transform: scale(1.1);
+}
+
+.red {
+  font-size: 20px;
+  color: red;
+}
+
+.liking {
+  color: red;
+  margin-left: 10px;
+}
