@@ -28,18 +28,13 @@ function List() {
       },
     );
     const data = await res.json();
-    console.log(data);
     setLoading(true);
-    if (data.winList) {
-      setWinList(winList.concat(data.winList));
-    }
-
-    console.log(setWinList);
+    setWinList(winList.concat(data.winList));
   };
 
   useEffect(() => {
     fetchWins(pageNumber);
-  }, [pageNumber]);
+  }, [pageNumber, tag]);
 
   const loadMore = () => {
     setPageNumber(prevPageNumber => prevPageNumber + 1);
