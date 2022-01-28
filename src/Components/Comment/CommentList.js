@@ -20,6 +20,9 @@ const CommentList = ({
 
   const [cmtOpen, setCmtOpen] = useState(false);
 
+  const [commentLikeCount, setCommentLikeCount] = useState(data.likeCount);
+  const [isLiked, setIsLiked] = useState(data.isLiked);
+
   const userFirstText = name => {
     const firstText = name[0];
     return firstText;
@@ -78,6 +81,15 @@ const CommentList = ({
       .post(`${process.env.REACT_APP_SERVER_HOST}/comment-like`, data, {
         headers,
       })
+      .then(() => {
+        if (isLiked) {
+          setCommentLikeCount(commentLikeCount - 1);
+          setIsLiked(false);
+        } else {
+          setCommentLikeCount(commentLikeCount + 1);
+          setIsLiked(true);
+        }
+      })
       .catch(error => console.log(error));
   };
 
@@ -97,9 +109,13 @@ const CommentList = ({
           </CommentInfo>
           <CommentFunctions>
             <LeftFunction>
-              <AiFillHeart className="heart" onClick={likeHandler(data.id)} />
+              <AiFillHeart
+                className="heart"
+                onClick={() => likeHandler(data.id)}
+                style={isLiked ? { color: 'red' } : { color: '#808080' }}
+              />
               <span className="heartCount">
-                {data.likeCount == 0 ? null : data.likeCount}
+                {commentLikeCount === 0 ? null : commentLikeCount}
               </span>
               <AiFillMessage onClick={reCmtHandler} className="recomment" />
 
