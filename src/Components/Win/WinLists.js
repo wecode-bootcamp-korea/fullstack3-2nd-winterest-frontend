@@ -50,11 +50,49 @@ function WinLists({ src, content, winId, userNumber }) {
           </Model>
         ) : null}
       </ImgContainer>
-      <h3 onClick={goToUser}>{content}</h3>
-      <LikeButton />
+      <UserInfo>
+        <div>
+          <UserLogo>{content[0]}</UserLogo>
+          <div className="userName" onClick={goToUser}>
+            {content}
+          </div>
+        </div>
+        <LikeButton className="likeBtn" />
+      </UserInfo>
     </Figure>
   );
 }
+
+const UserInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  width: 348px;
+  font-weight: 900;
+  font-size: 16px;
+
+  div {
+    /* margin-top: 5px; */
+    display: flex;
+
+    .userName {
+      margin-top: 5px;
+      margin-left: 10px;
+    }
+  }
+`;
+
+const UserLogo = styled.div`
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 50%;
+  padding: 5px;
+  margin-left: 5px;
+  background-color: rgb(237, 237, 237);
+`;
 
 const Figure = styled.div`
   display: inline-block;

@@ -3,20 +3,27 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const BoardList = () => {
+const BoardList = ({ modalOpen, userNumber }) => {
   const [boardData, setBoardData] = useState([]);
 
   const headers = {
+    'Content-type': 'application/json; charset=UTF-8',
     Authorization: sessionStorage.getItem('token'),
+  };
+
+  const data = {
+    userNumber: userNumber,
   };
 
   useEffect(() => {
     axios
-      .get('/datas/board.json')
-      // .get(`${process.env.REACT_APP_SERVER_HOST}/board`, { headers })
+      // .get('/datas/board.json')
+      .post(`${process.env.REACT_APP_SERVER_HOST}/user/board`, data, {
+        headers,
+      })
       .then(res => setBoardData(res.data.boardList))
       .catch(error => console.log(error));
-  }, []);
+  }, [modalOpen]);
 
   const linkToBoard = id => {
     return `/board/${id}`;

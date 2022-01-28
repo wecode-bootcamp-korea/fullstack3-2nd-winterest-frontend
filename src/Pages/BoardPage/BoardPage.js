@@ -37,7 +37,7 @@ function BoardPage() {
 
   useEffect(() => {
     fetchWins(pageNumber);
-  }, [pageNumber]);
+  }, [modalOpen, pageNumber]);
 
   const loadMore = () => {
     setPageNumber(prevPageNumber => prevPageNumber + 1);
@@ -70,7 +70,10 @@ function BoardPage() {
         <BoardModifyButton onClick={openModal}>수정</BoardModifyButton>
       </BoardName>
       <Modal open={modalOpen} close={closeModal}>
-        <BoardModifyModal />
+        <BoardModifyModal
+          setModalOpen={setModalOpen}
+          boardId={params.boardId}
+        />
       </Modal>
       <PinQuantity>핀 {boardDetail && boardDetail.length}개</PinQuantity>
       <Container>

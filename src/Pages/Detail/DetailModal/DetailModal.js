@@ -1,29 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const DetailModal = ({ winData, setModifyModal }) => {
+  const navigate = useNavigate();
+
   const [boardList, setBoardList] = useState('');
+
   const [boardListModal, setBoardListModal] = useState(false);
-  const [currentBoard, setCurrentBoard] = useState(winData.boardName);
+
+  const [currentBoard, setCurrentBoard] = useState(winData.isSaved[0].name);
+  const [currentBoardId, setCurrentBoardId] = useState(winData.isSaved[0].id);
   const [tagList, setTagList] = useState(winData.tags);
-  const [currentTitle, setCurrentTitle] = useState('');
-  const [currentDesc, setCurrentDesc] = useState('');
+  const [currentTitle, setCurrentTitle] = useState(winData.title);
+  const [currentDesc, setCurrentDesc] = useState(winData.description);
+
+  const author = winData.isAuthor;
 
   useEffect(() => {
     const headers = {
       Authorization: sessionStorage.getItem('token'),
     };
     axios
-      .get('/datas/board.json')
-      // .get(`${process.env.REACT_APP_SERVER_HOST}`, {headers})
+      // .get('/datas/board.json')
+      .get(`${process.env.REACT_APP_SERVER_HOST}/board`, { headers })
       .then(function (res) {
         setBoardList(res.data.boardList);
+        console.log(boardList);
       });
   }, []);
 
   const boardListHandler = () => {
-    console.log(boardListModal);
     if (boardListModal) return setBoardListModal(false);
     else return setBoardListModal(true);
   };
@@ -36,9 +44,72 @@ const DetailModal = ({ winData, setModifyModal }) => {
     setCurrentDesc(e.target.value);
   };
 
-  const currentBoardHandler = name => {
+  const currentBoardHandler = (name, id) => {
     setCurrentBoard(name);
+    setCurrentBoardId(id);
     setBoardListModal(false);
+  };
+
+  const modifyWinHandler = () => {
+    const MODIFY_URL = `${process.env.REACT_APP_SERVER_HOST}/win`;
+    let putUrl = '';
+    if (author) {
+      putUrl = `${MODIFY_URL}/${winData.id}`;
+    } else {
+      putUrl = `${MODIFY_URL}/save`;
+    }
+    const headers = {
+      'Content-type': 'application/json; charset=UTF-8',
+      Authorization: sessionStorage.getItem('token'),
+    };
+
+    const data = author
+      ? {
+          title: currentTitle,
+          desc: currentDesc,
+          boardId: currentBoardId,
+          tags: tagList,
+        }
+      : {
+          boardId: currentBoardId,
+          winId: winData.id,
+        };
+    console.log('Post Data: ', data);
+    axios
+      .put(putUrl, data, {
+        headers,
+      })
+      .then(setModifyModal(false))
+      .catch(error => console.log(error));
+  };
+
+  const deleteWinHandler = () => {
+    const headers = {
+      'Content-type': 'application/json; charset=UTF-8',
+      Authorization: sessionStorage.getItem('token'),
+    };
+    axios
+      .delete(`${process.env.REACT_APP_SERVER_HOST}/win/${winData.id}`, {
+        headers,
+      })
+      .then(navigate('/win'))
+      .catch(error => console.log(error));
+  };
+
+  const deleteTag = (e, index) => {
+    let arr = [...tagList];
+    arr.splice(index, 1);
+    setTagList(arr);
+  };
+
+  const createTagHandler = e => {
+    const arr = [...tagList];
+    if (e.key == 'Enter' && e.target.value) {
+      arr.push({ name: e.target.value });
+      e.target.value = '';
+      setTagList(arr);
+      console.log('tagList: ', tagList);
+    }
   };
 
   return (
@@ -53,7 +124,11 @@ const DetailModal = ({ winData, setModifyModal }) => {
                 {boardList &&
                   boardList.map(boardList => (
                     <ul>
-                      <li onClick={() => currentBoardHandler(boardList.name)}>
+                      <li
+                        onClick={() =>
+                          currentBoardHandler(boardList.name, boardList.id)
+                        }
+                      >
                         {boardList.name}
                       </li>
                     </ul>
@@ -66,24 +141,36 @@ const DetailModal = ({ winData, setModifyModal }) => {
                 {currentBoard}
               </BoardListArea>
             </BoardArea>
-            <TagArea>
-              <span>태그</span>
-              <TagListArea>{tagList}</TagListArea>
-            </TagArea>
-            <TitleArea>
-              <span>제목</span>
-              <TitleTextArea
-                defaultValue={winData.title}
-                onChange={titleHandler}
-              ></TitleTextArea>
-            </TitleArea>
-            <DescArea>
-              <span>내용</span>
-              <DescTextArea
-                defaultValue={winData.description}
-                onChange={descHandler}
-              ></DescTextArea>
-            </DescArea>
+            {author ? (
+              <div>
+                <TagArea>
+                  <span>태그</span>
+                  {tagList &&
+                    tagList.map((tag, index) => (
+                      <ImgTag onClick={e => deleteTag(e, index)}>
+                        {tag.name}
+                      </ImgTag>
+                    ))}
+                  <input type="text" onKeyPress={createTagHandler}></input>
+                </TagArea>
+                <TitleArea>
+                  <span>제목</span>
+                  <TitleTextArea
+                    // defaultValue={winData.title}
+                    onChange={titleHandler}
+                    defaultValue={currentTitle}
+                  ></TitleTextArea>
+                </TitleArea>
+                <DescArea>
+                  <span>내용</span>
+                  <DescTextArea
+                    // defaultValue={winData.description}
+                    onChange={descHandler}
+                    defaultValue={currentDesc}
+                  ></DescTextArea>
+                </DescArea>
+              </div>
+            ) : null}
           </ModifyContent>
           <ImgArea>
             <Img src={winData.imageUrl} />
@@ -91,13 +178,19 @@ const DetailModal = ({ winData, setModifyModal }) => {
         </ModifyArea>
         <ButtonArea>
           <LeftBtns>
-            <button className="deleteBtn">삭제</button>
+            {author ? (
+              <button onClick={deleteWinHandler} className="deleteBtn">
+                삭제
+              </button>
+            ) : null}
           </LeftBtns>
           <RightBtns>
             <button className="cancelBtn" onClick={() => setModifyModal(false)}>
               취소
             </button>
-            <button className="saveBtn">저장</button>
+            <button onClick={modifyWinHandler} className="saveBtn">
+              저장
+            </button>
           </RightBtns>
         </ButtonArea>
       </ModalArea>
@@ -107,7 +200,6 @@ const DetailModal = ({ winData, setModifyModal }) => {
 
 const spanStyle = css`
   margin-top: 20px;
-  padding-right: 50px;
 `;
 
 const ModifyModal = styled.section`
@@ -152,7 +244,7 @@ const ModifyContent = styled.section`
   flex-direction: column;
   margin-top: 20px;
   margin-left: 30px;
-  width: 65%;
+  width: 60%;
 `;
 
 const BoardModal = styled.section`
@@ -175,6 +267,9 @@ const BoardModal = styled.section`
 
 const BoardArea = styled.section`
   display: flex;
+  height: 54px;
+  padding-right: 20px;
+  padding-bottom: 20px;
   span {
     ${spanStyle}
   }
@@ -188,23 +283,48 @@ const BoardListArea = styled.section`
   height: 44px;
   border-radius: 12px;
   line-height: 44px;
-  vertical-align: middle;
+  vertical-align: bottom;
   background-color: rgb(237, 237, 237);
 `;
 
 const TagArea = styled.section`
   display: flex;
+  flex-wrap: wrap;
+  height: 54px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+
   span {
+    margin-right: 15px;
     ${spanStyle}
+  }
+
+  input {
+    :focus {
+      border: none;
+      border-bottom: 1px solid;
+      outline: none;
+    }
+    width: 100px;
+    border: none;
+    border-bottom: 1px solid;
+    margin-top: 20px;
+    font-size: 16px;
   }
   border-bottom: 1px solid lightgray;
 `;
 
-const TagListArea = styled.span`
-  margin: 15px;
-  padding-left: 20px;
-  width: 360px;
-  height: 44px;
+const ImgTag = styled.span`
+  cursor: pointer;
+  margin-top: 20px;
+  margin-right: 10px;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+  border-radius: 26px;
+  background-color: rgb(237, 237, 237);
 `;
 
 const TitleArea = styled.section`
@@ -250,14 +370,14 @@ const DescTextArea = styled.textarea.attrs(props => ({
 
 const ImgArea = styled.section`
   width: 30%;
-  margin-left: 25px;
+  margin-left: 7%;
 `;
 
 const Img = styled.img.attrs(props => ({
   src: props.src,
   alt: '수정중',
 }))`
-  width: 236px;
+  width: 80%;
   border-radius: 20px;
 `;
 
@@ -268,8 +388,44 @@ const ButtonArea = styled.section`
   width: 100%;
 `;
 
-const LeftBtns = styled.section``;
+const LeftBtns = styled.section`
+  margin: 20px 0 20px 20px;
+  button {
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 15px 20px;
+    font-size: 20px;
+    font-weight: 600;
+    border: none;
+    border-radius: 15px;
+    :hover {
+      background-color: lightgray;
+    }
+  }
+`;
 
-const RightBtns = styled.section``;
+const RightBtns = styled.section`
+  margin: 20px 50px 20px 0;
+  button {
+    cursor: pointer;
+    margin-left: 40px;
+    padding: 15px 20px;
+    font-size: 20px;
+    border: none;
+    font-weight: 600;
+    border-radius: 15px;
+    :hover {
+      background-color: lightgray;
+    }
+  }
+
+  .saveBtn {
+    background-color: red;
+    color: white;
+    :hover {
+      background-color: darkred;
+    }
+  }
+`;
 
 export default DetailModal;

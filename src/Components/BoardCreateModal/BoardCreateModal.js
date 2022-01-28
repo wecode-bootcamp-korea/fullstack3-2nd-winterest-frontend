@@ -1,10 +1,32 @@
+import React, { useState } from 'react';
+
+import axios from 'axios';
 import styled from 'styled-components';
 
-function BoardCreateModal() {
+function BoardCreateModal({ setModalOpen }) {
+  const [boardText, setBoardText] = useState('');
+
+  const boardTextHandler = e => {
+    setBoardText(e.target.value);
+  };
+
+  const createBoardHandler = () => {
+    const headers = {
+      'Content-type': 'application/json; charset=UTF-8',
+      Authorization: sessionStorage.getItem('token'),
+    };
+
+    const data = {
+      boardName: boardText,
+    };
+    axios
+      .post(`${process.env.REACT_APP_SERVER_HOST}/board`, data, { headers })
+      .then(res => setModalOpen(false));
+  };
+
   return (
     <FullBoardContainer>
       <Title>보드 생성</Title>
-      <BoardName>이름</BoardName>
       <BoardWrapper>
         <div className="Board">
           <div className="BoardDetail">
@@ -13,6 +35,7 @@ function BoardCreateModal() {
                 className="BoardTextInput"
                 type="text"
                 placeholder="보드명"
+                onChange={boardTextHandler}
                 // onChange={handleTagInput}
                 // onKeyPress={handleEnter}
               ></input>
@@ -23,7 +46,9 @@ function BoardCreateModal() {
 
       <CreateContainer>
         <div>
-          <button type="button">생성</button>
+          <button type="button" onClick={createBoardHandler}>
+            생성
+          </button>
         </div>
       </CreateContainer>
     </FullBoardContainer>
@@ -41,15 +66,16 @@ const Title = styled.div`
   font-weight: 700;
   font-size: 30px;
 `;
-const BoardName = styled.div`
-  color: black;
-  font-size: 20px;
-  margin-left: 8%;
-  margin-bottom: 3%;
-`;
+// const BoardName = styled.div`
+//   color: black;
+//   font-size: 20px;
+//   margin-left: 8%;
+//   margin-bottom: 3%;
+// `;
 
 const BoardWrapper = styled.div`
   display: flex;
+  margin-top: 15px;
   padding: 0 8px 0 20px;
   flex-grow: 1;
   .Board {
