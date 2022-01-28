@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-function BoardList({ boardName, winId, boardId }) {
+function BoardList({ boardName, winId, boardId, setIsOpen }) {
   function saveBoard() {
     console.log(winId, boardId, boardName);
     fetch(`${process.env.REACT_APP_SERVER_HOST}/win/save`, {
@@ -19,9 +19,11 @@ function BoardList({ boardName, winId, boardId }) {
       .then(res => res.json())
       .then(data => {
         if (data.message === 'SAVE_SUCCESS') {
+          setIsOpen(false);
           alert('보드에 저장 성공😆');
         }
         if (data.message === 'ALREADY_SAVED') {
+          setIsOpen(false);
           alert(
             '이미 저장한 윈입니다! 삭제를 원하신다면, 보드 페이지에서 삭제해 주세요.😭',
           );
@@ -68,7 +70,7 @@ const BoardListContainer = styled.div`
   justify-content: space-between;
 `;
 
-function BoardModal({ winId }) {
+function BoardModal({ winId, setIsOpen }) {
   const [boards, setBoards] = useState([]);
 
   useEffect(() => {
@@ -107,6 +109,7 @@ function BoardModal({ winId }) {
                   boardName={board.name}
                   winId={winId}
                   boardId={board.id}
+                  setIsOpen={setIsOpen}
                 />
               </StoreContainer>
             );
