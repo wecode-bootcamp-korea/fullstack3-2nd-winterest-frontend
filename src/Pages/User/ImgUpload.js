@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useDebugValue } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled, { css } from 'styled-components';
-import { BiDotsHorizontalRounded } from 'react-icons/bi';
+// import { BiDotsHorizontalRounded } from 'react-icons/bi';
 import { HiArrowCircleUp } from 'react-icons/hi';
 import { FaTrash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import NavBarMain from '../../Components/NavBar/NavBarMain';
 
 const ImgUpload = () => {
   const navigate = useNavigate();
@@ -25,8 +26,7 @@ const ImgUpload = () => {
   // 보드 리스트 저장하는 state
   const [boardList, setBoardList] = useState('');
 
-  // const [boardModal, setBoardModal] = useState(false);
-  // const [boardList, setBoardList] = useState([]);
+  const [userName, setUserName] = useState('');
 
   //useRef 변수에 할당
   const refTitle = React.useRef();
@@ -131,11 +131,14 @@ const ImgUpload = () => {
       .then(function (res) {
         setBoardList(res.data.boardList);
       });
-    console.log('boardList: ', boardList);
+    axios
+      .get(`${process.env.REACT_APP_SERVER_HOST}/user/name`, { headers })
+      .then(res => setUserName(res.data.userName));
   }, [currentBoard]);
 
   return (
     <Section>
+      <NavBarMain />
       <UploadBox>
         <InnerBox>
           {boardListModal ? (
@@ -155,10 +158,10 @@ const ImgUpload = () => {
             </BoardModal>
           ) : null}
           <OptionAndTag>
-            <BiDotsHorizontalRounded
+            {/* <BiDotsHorizontalRounded
               className="dotThree"
               onClick={() => alert('아직 준비중입니다!')}
-            />
+            /> */}
 
             <TagArea></TagArea>
           </OptionAndTag>
@@ -193,7 +196,11 @@ const ImgUpload = () => {
                 {tag?.map(tag => (
                   <ImgTag>{tag}</ImgTag>
                 ))}
-                <input type="text" onKeyPress={tagHandler}></input>
+                <input
+                  type="text"
+                  placeholder="태그 입력 후 Enter"
+                  onKeyPress={tagHandler}
+                ></input>
               </section>
               <TextTitle
                 ref={refTitle}
@@ -201,8 +208,8 @@ const ImgUpload = () => {
                 placeholder="제목 추가"
               />
               <UserName>
-                <CircleUserWord>W</CircleUserWord>
-                &nbsp;&nbsp;WinTeResT
+                <CircleUserWord>{userName[0]}</CircleUserWord>
+                &nbsp;&nbsp;{userName}
               </UserName>
               <TextDescription
                 ref={refDesc}
@@ -235,6 +242,7 @@ const TextArea = css`
 `;
 
 const Section = styled.section`
+  min-height: 100vh;
   background-color: rgb(237, 237, 237);
 `;
 
@@ -313,8 +321,9 @@ const ImgArea = css`
 
 const UploadBox = styled.section`
   width: 880px;
-  height: 650px;
-  margin: 100px auto;
+  /* height: 650px; */
+  margin: 30px auto;
+  padding-bottom: 30px;
   border-radius: 1rem;
   background-color: ${props => props.theme.white};
 `;
@@ -406,7 +415,7 @@ const Info = styled.section`
       :focus {
         outline: none;
       }
-      width: 20%;
+      width: 30%;
       margin-top: 10px;
       border: none;
       padding: 5px;

@@ -109,6 +109,7 @@ const NavBarMainContainer = styled.div`
   height: 56px;
   width: 100%;
   padding: 6px 0;
+  background-color: ${props => props.theme.white};
 `;
 
 const HomeIconWrapper = styled.div`

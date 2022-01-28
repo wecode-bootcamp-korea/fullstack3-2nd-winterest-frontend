@@ -176,7 +176,7 @@ const WinDetail = () => {
                 <button className="close" onClick={boardModalHandler}>
                   &times;
                 </button>
-                <BoardModal winId={winData.id} />
+                <BoardModal setIsOpen={setIsOpen} winId={winData.id} />
               </Model>
             ) : null}
             <IconsAndBoard>

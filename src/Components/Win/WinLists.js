@@ -46,7 +46,7 @@ function WinLists({ src, content, winId, userNumber, winLike }) {
               &times;
             </button>
             {console.log(winId)}
-            <BoardModal winId={winId} />
+            <BoardModal winId={winId} setIsOpen={setIsOpen} />
           </Model>
         ) : null}
       </ImgContainer>
