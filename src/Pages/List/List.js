@@ -77,7 +77,11 @@ function List() {
         <div></div>
       </Container>
       <Loading ref={pageEnd}>
-        <LoadingBar src="/images/Winter.gif" alt="load" />
+        <LoadingBar
+          src="/images/Winter.gif"
+          alt="load"
+          onMouseOver={loadMore}
+        />
       </Loading>
     </>
   );
