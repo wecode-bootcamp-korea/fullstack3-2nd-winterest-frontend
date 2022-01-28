@@ -30,6 +30,7 @@ const WinDetail = () => {
 
   const [followCnt, setFollowCnt] = useState(0);
   const [isFollowed, setIsFollowed] = useState();
+  const [isHeart, setIsHeart] = useState(false);
 
   const downloadImage = imgUrl => {
     const imgName = imgUrl.split('/')[2];
@@ -190,7 +191,11 @@ const WinDetail = () => {
                   className="send"
                 />
                 <BiCopy onClick={() => alert('준비중임다!')} className="copy" />
-                <HeartButton />
+                <HeartButton
+                  isHeart={isHeart}
+                  setIsHeart={setIsHeart}
+                  winId={winData.id}
+                />
               </Icons>
               <MyBoard>
                 <SaveBtn
