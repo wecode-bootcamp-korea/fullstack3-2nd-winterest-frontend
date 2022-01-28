@@ -92,10 +92,10 @@ function SignUp() {
   return (
     <LoginWrapper>
       <LoginForm>
-        <Img src="/images/윈터레스트-001.png" alt="logo" />
+        {/* <Img src="/images/윈터레스트-001.png" alt="logo" /> */}
         <HeadingWrapper>
-          <Heading1>Winterest 에 오신 것을 환영</Heading1>
-          <Heading2>합니다</Heading2>
+          <Heading1>Winterest 에 오신 것을</Heading1>
+          <Heading2>환영합니다</Heading2>
         </HeadingWrapper>
         <IdContainer>
           <IdInput
@@ -159,11 +159,12 @@ const LoginWrapper = styled.div`
   width: fit-content;
   margin: 0 auto;
   margin-top: -65px;
+  padding-top: 100px;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  height: auto;
+  height: 450px;
 `;
 
 const LoginForm = styled.form`
@@ -185,6 +186,7 @@ const IdContainer = styled.div`
 `;
 
 const IdInput = styled.input`
+  padding-left: 20px;
   border: 1px solid rgb(221 221 221);
   border-radius: 16px;
   height: 30px;
@@ -197,6 +199,7 @@ const PwContainer = styled.div`
 `;
 
 const PwInput = styled.input`
+  padding-left: 20px;
   border: 1px solid rgb(221 221 221);
   border-radius: 16px;
   height: 30px;
@@ -209,6 +212,7 @@ const NameContainer = styled.div`
 `;
 
 const NameInput = styled.input`
+  padding-left: 20px;
   border: 1px solid rgb(221 221 221);
   border-radius: 16px;
   height: 30px;
@@ -235,6 +239,11 @@ const KakaoLogin = styled.button`
   height: 30px;
   width: 250px;
   border-width: 2px;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
 `;
 
 const LoginDefault = styled.button`
@@ -244,7 +253,7 @@ const LoginDefault = styled.button`
   height: 30px;
   width: 250px;
   border-width: 2px;
-  background-color: rgb(30 212 255);
+  background-color: gry;
 `;
 
 const KakaoLoginWrapper = styled.div`
