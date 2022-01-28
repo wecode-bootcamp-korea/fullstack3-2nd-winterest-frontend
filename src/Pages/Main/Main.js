@@ -167,24 +167,24 @@ const bounce1 = keyframes`
 `;
 
 const FloatingSignin = styled.div`
-  margin-left: -4.5%;
+  margin-left: -6.5%;
   z-index: 20;
   position: fixed;
   left: 50%;
   animation: ${bounce1} 1s infinite;
-  /* @media screen and (max-width: 1200px) {
+  @media screen and (max-width: 1200px) {
     margin-left: -12%;
   }
   @media screen and (max-width: 768px) {
     margin-left: -17%;
   }
   @media screen and (max-width: 480px) {
-    margin-left: -29%;
-  } */
-
-  @media (max-width: 1169px) {
-    margin-left: -22%;
+    margin-left: -31%;
   }
+
+  /* @media (max-width: 1169px) {
+    margin-left: -22%;
+  } */
 
   button {
     all: unset;
@@ -215,6 +215,7 @@ const FloatingSignin = styled.div`
 `;
 
 const FloatingSignup = styled.div`
+  margin-left: 0.5%;
   z-index: 20;
   position: fixed;
   bottom: 0;

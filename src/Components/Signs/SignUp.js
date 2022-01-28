@@ -247,7 +247,11 @@ const LoginDefault = styled.button`
   background-color: rgb(30 212 255);
 `;
 
-const KakaoLoginWrapper = styled.div``;
+const KakaoLoginWrapper = styled.div`
+  a {
+    all: unset;
+  }
+`;
 
 const HeadingWrapper = styled.div`
   margin-top: -20px;
