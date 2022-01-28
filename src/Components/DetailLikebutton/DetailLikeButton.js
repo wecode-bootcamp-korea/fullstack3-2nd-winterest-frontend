@@ -1,24 +1,27 @@
 import React from 'react';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-function HeartButton({ productId, isHeart, setIsHeart }) {
-  const navigate = useNavigate();
-
+function HeartButton({ isHeart, setIsHeart, winId }) {
   const handleClickHeart = () => {
-    fetch(
-      `${process.env.REACT_APP_SERVER_HOST}/products/heart?productId=${productId}`,
-      {
-        headers: new Headers({
-          Authorization: sessionStorage.getItem('token'),
-        }),
-      },
-    )
-      .then(res => res.json())
-      .then(data => {
-        if (data.message === 'VALIDATE_ERROR') navigate('/users/login');
-      });
+    console.log(winId);
+    fetch(`${process.env.REACT_APP_SERVER_HOST}/win-like`, {
+      method: 'POST',
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+        Authorization: sessionStorage.getItem('token'),
+      }),
+      mode: 'cors',
+      body: JSON.stringify({
+        winId: winId,
+      }),
+    });
+
+    // .then(res => res.json());
+    // .then(data => {
+    //   console.log(data);
+    // if (data.message === 'VALIDATE_ERROR') navigate('/');
+    // });
 
     isHeart ? setIsHeart(false) : setIsHeart(true);
   };
@@ -41,6 +44,7 @@ const HeartingButton = styled.div`
   width: 10px;
   margin: 0 0 3px 25px;
   cursor: pointer;
+  margin-top: 8px;
 
   .button {
     font-size: 20px;
