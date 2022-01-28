@@ -94,7 +94,7 @@ const WinDetail = () => {
   };
 
   const linkToTag = tagName => {
-    return `/win?tagname=${tagName}`;
+    return `/win?tagname=${tagName}&pagenumber=1`;
   };
 
   const LinkToUser = num => {

@@ -75,7 +75,7 @@ const UserInfo = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 5px;
-  width: 348px;
+  width: 300px;
   font-weight: 900;
   font-size: 16px;
 

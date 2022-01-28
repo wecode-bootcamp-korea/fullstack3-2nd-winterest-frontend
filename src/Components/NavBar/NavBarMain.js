@@ -42,7 +42,11 @@ function NavBarMain() {
     <NavBarMainContainer>
       <HomeIconWrapper>
         <div className="logoWrapper">
-          <img className="logo" alt="logo" src="./images/favicon.png" />
+          <img
+            className="logo"
+            alt="logo"
+            src={process.env.PUBLIC_URL + '/images/favicon.png'}
+          />
         </div>
         <div className="homeWrapper">
           <Link to="/win" className="home">
@@ -56,7 +60,7 @@ function NavBarMain() {
             <img
               className="searchIcon"
               alt="searchIcon"
-              src="./images/navbar/magnifier.png"
+              src={process.env.PUBLIC_URL + '/images/navbar/magnifier.png'}
             />
             <div className="searchText">
               <input
@@ -75,14 +79,22 @@ function NavBarMain() {
           <img
             className="icon"
             alt="ringIcon"
-            src="./images/navbar/ring-bell.png"
+            src={process.env.PUBLIC_URL + '/images/navbar/ring-bell.png'}
           />
         </div>
         <div className="infoIcon">
-          <img className="icon" alt="chatIcon" src="./images/navbar/chat.png" />
+          <img
+            className="icon"
+            alt="chatIcon"
+            src={process.env.PUBLIC_URL + '/images/navbar/chat.png'}
+          />
         </div>
         <div className="infoIcon" onClick={handleClick}>
-          <img className="icon" alt="userIcon" src="./images/navbar/user.png" />
+          <img
+            className="icon"
+            alt="userIcon"
+            src={process.env.PUBLIC_URL + '/images/navbar/user.png'}
+          />
         </div>
       </InfoWrapper>
     </NavBarMainContainer>
