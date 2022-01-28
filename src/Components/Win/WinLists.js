@@ -4,7 +4,7 @@ import LikeButton from '../../Components/Likes/likeButton';
 import BoardModal from '../BoardModal/BoardModal';
 import { useNavigate } from 'react-router-dom';
 
-function WinLists({ src, content, winId, userNumber }) {
+function WinLists({ src, content, winId, userNumber, winLike }) {
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => {
     setIsOpen(!isOpen);
@@ -57,11 +57,19 @@ function WinLists({ src, content, winId, userNumber }) {
             {content}
           </div>
         </div>
+        <div>
+          <LikeButton className="likeBtn" />
+          <LikeCount>{winLike}</LikeCount>
+        </div>
         <LikeButton className="likeBtn" />
       </UserInfo>
     </Figure>
   );
 }
+
+const LikeCount = styled.span`
+  margin-top: 4px;
+`;
 
 const UserInfo = styled.div`
   display: flex;
