@@ -11,6 +11,7 @@ import axios from 'axios';
 import DetailModal from './DetailModal/DetailModal';
 import BoardModal from '../../Components/BoardModal/BoardModal';
 import NavBarMain from '../../Components/NavBar/NavBarMain';
+import HeartButton from '../../Components/DetailLikebutton/DetailLikeButton';
 
 const WinDetail = () => {
   const params = useParams();
@@ -184,12 +185,12 @@ const WinDetail = () => {
                   onClick={modifyWinHandler}
                   className="more"
                 />
-
                 <FiShare
                   onClick={() => alert('준비중임다!')}
                   className="send"
                 />
                 <BiCopy onClick={() => alert('준비중임다!')} className="copy" />
+                <HeartButton />
               </Icons>
               <MyBoard>
                 <SaveBtn

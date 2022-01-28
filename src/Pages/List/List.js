@@ -70,6 +70,7 @@ function List() {
                 content={win.userName}
                 winId={win.id}
                 userNumber={win.userNumber}
+                winLike={win.likeCount}
               />
             );
           })}
