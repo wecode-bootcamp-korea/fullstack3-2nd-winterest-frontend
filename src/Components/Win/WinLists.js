@@ -61,7 +61,6 @@ function WinLists({ src, content, winId, userNumber, winLike }) {
           <LikeButton className="likeBtn" />
           <LikeCount>{winLike}</LikeCount>
         </div>
-        <LikeButton className="likeBtn" />
       </UserInfo>
     </Figure>
   );
