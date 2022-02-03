@@ -1,70 +1,110 @@
-# Getting Started with Create React App
+# winterest
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Winterest-logo-white](https://user-images.githubusercontent.com/90169703/152273792-02aa1b13-3ffb-451d-8f61-07a7a79f6584.png)
 
-## Available Scripts
 
-In the project directory, you can run:
+[winterest 사이트 방문하기]()
 
-### `npm start`
+## Members
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<프론트 엔드>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<img src="https://user-images.githubusercontent.com/90169703/152270453-d84bbe12-ce24-4b7a-94a2-319125ee3f11.jpg" width="50px" height="50px"/> 강민수 &nbsp; [기술블로그](https://velog.io/@minsu8834)
 
-### `npm test`
+<img src="https://user-images.githubusercontent.com/90169703/152270576-9b3a2a21-dbbe-4294-ae58-56dfb67e12bb.jpg" width="50px" height="50px"/> 박태준 &nbsp; [기술블로그]()
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<풀스택>
 
-### `npm run build`
+<img src="https://user-images.githubusercontent.com/90169703/152270561-f44068bf-81d4-4b65-9124-2dafdc96d0fc.jpg" width="50px" height="50px"/> 최종민 &nbsp; [기술블로그]()
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<백엔드>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<img src="https://user-images.githubusercontent.com/90169703/152270596-805d1d9c-07b0-4fee-9dfb-6cf6d9deff80.jpg" width="50px" height="50px"/> 정태영 &nbsp; [기술블로그](https://dev-taeyeong.github.io)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br>
 
-### `npm run eject`
+## Introduction
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+대표적인 사진 기반 sns 사이트인 pinterest 사이트의 주요기능들을 학습 목적으로 클론 코딩한 프로젝트 개발.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 기간 : 22.01.17~ 22.01.28
+- 구성 : Front-end 2명, Full-stack 1명, Back-end 1명
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 레포지토리 주소
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- [Front-end Github](https://github.com/wecode-bootcamp-korea/fullstack3-2nd-winterest-frontend)
+- [Back-end Github](https://github.com/wecode-bootcamp-korea/fullstack3-2nd-winterest-backend)
 
-## Learn More
+### Notion 프로젝트 소개
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 프로젝트 사이트 기능 구현 영상
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+[winterest 구현 영상]()
 
-### Code Splitting
+### DB modeling
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- winterest db 자료 구조
+ 
 
-### Analyzing the Bundle Size
+### Technologies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- 공통
 
-### Making a Progressive Web App
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=#181717"> <img src="https://img.shields.io/badge/visualstudiocode-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Front-end
 
-### Advanced Configuration
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Back-end
 
-### Deployment
+<img src="https://img.shields.io/badge/prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white"> <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=node.js&logoColor=white"> <img src="https://img.shields.io/badge/postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white"> <img src="https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white">
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 담당자 별 구현 기능.
 
-### `npm run build` fails to minify
+[ Front-end ]
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<강민수>
+1. 홈 랜딩 페이지 ui 및 기능 구현
+
+- 홈 랜딩 페이지 글자 타이핑 효과 구현.
+- 홈 랜딩 페이지 로그인 & 회원가입 플로팅 버튼 ui 
+- 로그인& 회원가입 모달 창 개발 및 기능 구현. 
+- 일반 로그인 벨리데이션 및 카카오 소셜 로그인 기능 구현
+- 홈 랜딩 페이지 이미지 반응형 구현
+
+2. 메인 윈(카드) 리스트 페이지 ui 및 기능 구현
+
+- masonry 레이아웃 및 페이지 내부 데이터 연결 구현
+- 네브바 태그 서칭 기능에 따른 윈(카드) 리스트 페이지 재 랜더링 구현
+- 윈 저장 버튼 누를 시 보드별로 저장 모달창 ui 및 기능 구현. 
+- 보드별 저장 기능 구현 및 중복 저장 방지에 따른 알러트 창 구현. 
+- 메인 페이지 전반에 반응형 작업 구현. 
+
+3. 보드 페이지 ui 및 기능 구현. 
+
+- 사용자 별 보드 페이지에 따른 윈(=카드) 리스트 구현. 
+- 보드 이름 수정 버튼 모달창 구현
+
+
+<박태준>
+
+
+
+<최종민>
+
+[ Back-end ]
+
+<정태영>
+
+
+<최종민>
+
+
+
+### Contact US
+
+- 강민수 minsu910725@gmail.com
+- 박태준
+- 최종민 
+- 정태영 dev.taeyeong@gmail.com
