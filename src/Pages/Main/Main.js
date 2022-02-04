@@ -12,7 +12,13 @@ function Main() {
   const [modalOpen, setModalOpen] = useState(false);
   const [changeForm, setChangeForm] = useState('signIn');
 
-  const openModal = () => {
+  const openModal = e => {
+    console.log(e);
+    if (e.target.name === 'signIn') {
+      setChangeForm('signIn');
+    } else {
+      setChangeForm('signUp');
+    }
     setModalOpen(true);
   };
   const closeModal = () => {

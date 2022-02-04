@@ -16,6 +16,7 @@ import HeartButton from '../../Components/DetailLikebutton/DetailLikeButton';
 const WinDetail = () => {
   const params = useParams();
   // const history = useHistory();
+  const { userId, winId } = useParams();
 
   const [winData, SetWinData] = useState('');
 
@@ -67,6 +68,30 @@ const WinDetail = () => {
   //   };
   //   axios.post(`${process.env.REACT_APP_SERVER_HOST}/win`, { headers });
   // };
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_SERVER_HOST}/win-like`, {
+      method: 'GET',
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+        Authorization: sessionStorage.getItem('token'),
+      }),
+      mode: 'cors',
+      body: JSON.stringify({
+        winId: winId,
+        userId: userId,
+      }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        setIsHeart(Boolean(data.isHeart));
+      });
+    // .then(res => res.json())
+    // .then(data => {
+    //   console.log(data);
+    //   setIsHeart(Boolean(data.likeWinQuantity === 0 ? false : true));
+    // });
+  }, [isHeart]);
 
   const followingHandler = () => {
     const headers = {

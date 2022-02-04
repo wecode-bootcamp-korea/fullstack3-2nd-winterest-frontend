@@ -32,6 +32,7 @@ const KakaoAuth = () => {
         })
           .then(res => res.json())
           .then(data => sessionStorage.setItem('token', data.accessToken))
+          .then(alert('Winterest에 오신 것을 환영합니다😊'))
           .then(navigate('/win')),
       );
   }, [code]);

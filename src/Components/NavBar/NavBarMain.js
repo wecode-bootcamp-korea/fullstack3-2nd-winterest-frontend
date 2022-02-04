@@ -20,6 +20,7 @@ function NavBarMain() {
   }, []);
 
   const handleClick = () => {
+    console.log(userNumber);
     navigate(`/user/${userNumber}`);
   };
 
@@ -106,10 +107,17 @@ export default NavBarMain;
 const NavBarMainContainer = styled.div`
   display: flex;
   align-items: center;
-  height: 56px;
+  height: auto;
   width: 100%;
-  padding: 6px 0;
-  background-color: ${props => props.theme.white};
+  justify-content: space-between;
+  z-index: 500;
+  background-color: white;
+  padding: 4px 0;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 `;
 
 const HomeIconWrapper = styled.div`

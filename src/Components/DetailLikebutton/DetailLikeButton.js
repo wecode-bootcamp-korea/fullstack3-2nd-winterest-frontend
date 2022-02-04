@@ -17,12 +17,6 @@ function HeartButton({ isHeart, setIsHeart, winId }) {
       }),
     });
 
-    // .then(res => res.json());
-    // .then(data => {
-    //   console.log(data);
-    // if (data.message === 'VALIDATE_ERROR') navigate('/');
-    // });
-
     isHeart ? setIsHeart(false) : setIsHeart(true);
   };
 
