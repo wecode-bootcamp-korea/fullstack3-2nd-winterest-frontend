@@ -65,45 +65,55 @@ function BoardPage() {
   return (
     <>
       <NavBarMain />
-      <BoardName>
-        {boardName && boardName}
-        <BoardModifyButton onClick={openModal}>수정</BoardModifyButton>
-      </BoardName>
-      <Modal open={modalOpen} close={closeModal}>
-        <BoardModifyModal
-          setModalOpen={setModalOpen}
-          boardId={params.boardId}
-        />
-      </Modal>
-      <PinQuantity>핀 {boardDetail && boardDetail.length}개</PinQuantity>
-      <Container>
-        {boardDetail &&
-          boardDetail.map(wins => {
-            return (
-              <FullContainer>
-                <Figure>
-                  <ImgContainer>
-                    <img
-                      className="img"
-                      name="win"
-                      src={wins.imageUrl}
-                      alt="test"
-                      onClick={() => goToDetail(wins.id)}
-                    />
-                    {console.log(wins.id)}
-                  </ImgContainer>
-                </Figure>
-              </FullContainer>
-            );
-          })}
-        <div></div>
-      </Container>
-      <Loading ref={pageEnd}>
-        <LoadingBar src="/images/Winter.gif" alt="load" />
-      </Loading>
+      <BoardPageContainer>
+        <BoardName>
+          {boardName && boardName}
+          <BoardModifyButton onClick={openModal}>수정</BoardModifyButton>
+        </BoardName>
+        <Modal open={modalOpen} close={closeModal}>
+          <BoardModifyModal
+            setModalOpen={setModalOpen}
+            boardId={params.boardId}
+          />
+        </Modal>
+        <PinListContainer>
+          <PinQuantity>핀 {boardDetail && boardDetail.length}개</PinQuantity>
+          <Container>
+            {boardDetail &&
+              boardDetail.map(wins => {
+                return (
+                  <FullContainer>
+                    <Figure>
+                      <ImgContainer>
+                        <img
+                          className="img"
+                          name="win"
+                          src={wins.imageUrl}
+                          alt="test"
+                          onClick={() => goToDetail(wins.id)}
+                        />
+                        {console.log(wins.id)}
+                      </ImgContainer>
+                    </Figure>
+                  </FullContainer>
+                );
+              })}
+            <div></div>
+          </Container>
+          <Loading ref={pageEnd}>
+            <LoadingBar src="/images/Winter.gif" alt="load" />
+          </Loading>
+        </PinListContainer>
+      </BoardPageContainer>
     </>
   );
 }
+
+const BoardPageContainer = styled.div``;
+
+const PinListContainer = styled.div`
+  margin-top: -8%;
+`;
 
 const FullContainer = styled.div`
   column-width: 300px;
@@ -131,7 +141,7 @@ const BoardName = styled.h3`
   justify-content: center;
   font-weight: 700;
   font-size: 2em;
-  margin-top: 3%;
+  margin-top: 10%;
 `;
 
 const PinQuantity = styled.div`

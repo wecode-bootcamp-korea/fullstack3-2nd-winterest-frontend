@@ -3,13 +3,21 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import NavBarMain from '../../Components/NavBar/NavBarMain';
 import WinLists from '../../Components/Win/WinLists';
+import Masonry from 'react-masonry-css';
+import './styles.css';
+
+// 카드 레이아웃 반응형 변수.
+const breakpointColumnsObj = {
+  default: 5,
+  1100: 3,
+  700: 2,
+  500: 1,
+};
 
 function List() {
   const [winList, setWinList] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [tag, setTag] = useState('');
-  const [loading, setLoading] = useState(false);
-
   const location = decodeURI(useLocation().search);
   useEffect(() => {
     setTag(location);
@@ -20,76 +28,79 @@ function List() {
   const tags = tag.split('=');
   const tagName = tags[1];
 
-  const fetchWins = async pageNumber => {
-    const res = await fetch(
+  // 스크롤 시 페이지 넘버 증가
+  const scrollToEnd = () => {
+    setPageNumber(pageNumber + 1);
+  };
+
+  // 리스트 패치
+  useEffect(() => {
+    fetch(
       `${process.env.REACT_APP_SERVER_HOST}/win?tagname=${tagName}&pagenumber=${pageNumber}`,
       {
-        headers: { Authorization: sessionStorage.getItem('token') },
+        method: 'GET',
+        headers: {
+          Authorization: sessionStorage.getItem('token'),
+        },
       },
-    );
-    const data = await res.json();
-    setLoading(true);
-    setWinList(winList.concat(data.winList));
-  };
-
-  useEffect(() => {
-    fetchWins(pageNumber);
+    )
+      .then(res => res.json())
+      .then(data => setWinList([...winList, ...data.winList]));
   }, [pageNumber, tag]);
 
-  const loadMore = () => {
-    setPageNumber(prevPageNumber => prevPageNumber + 1);
+  const onScroll = e => {
+    const { scrollHeight, scrollTop, clientHeight } = e.target.scrollingElement;
+    console.log(scrollTop);
+    if (scrollTop + clientHeight === scrollHeight) {
+      scrollToEnd();
+    }
   };
 
-  const pageEnd = useRef();
-  useEffect(() => {
-    if (loading) {
-      const observer = new IntersectionObserver(
-        entries => {
-          if (entries[0].isIntersecting) {
-            loadMore();
-          } else {
-            observer.unobserve(pageEnd.current);
-          }
-        },
-        { threshold: 1 },
-      );
-      observer.observe(pageEnd.current);
-    }
-  }, [loading]);
+  // 무한스크롤 디바운스 추가
+  const debounce = (func, delay) => {
+    let timeoutId = null;
+    return (...arg) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(func.bind(null, ...arg), delay);
+    };
+  };
+  // 스크롤 이벤트 추가.
+  document.addEventListener('scroll', debounce(onScroll, 300));
 
   return (
     <>
       <NavBarMain />
       <Container>
-        {winList &&
-          winList.map(win => {
-            return (
-              <WinLists
-                src={win.imageUrl}
-                key={win.id}
-                content={win.userName}
-                winId={win.id}
-                userNumber={win.userNumber}
-                winLike={win.likeCount}
-              />
-            );
-          })}
-        <div></div>
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
+        >
+          {winList.length > 0 &&
+            winList.map(win => {
+              return (
+                <WinLists
+                  src={win.imageUrl}
+                  key={win.id}
+                  content={win.userName}
+                  winId={win.id}
+                  userNumber={win.userNumber}
+                  winLike={win.likeCount}
+                />
+              );
+            })}
+        </Masonry>
       </Container>
-      <Loading ref={pageEnd}>
-        <LoadingBar
-          src="/images/Winter.gif"
-          alt="load"
-          onMouseOver={loadMore}
-        />
+
+      <Loading>
+        <LoadingBar src="/images/Winter.gif" alt="load" />
       </Loading>
     </>
   );
 }
 
 const Container = styled.div`
-  column-width: 300px;
-  margin: 50px 50px;
+  margin: 10% 5%;
 `;
 const Loading = styled.div`
   display: flex;
