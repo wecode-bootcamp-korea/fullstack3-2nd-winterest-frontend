@@ -9,17 +9,17 @@
 
 <프론트 엔드>
 
-<img src="https://user-images.githubusercontent.com/90169703/152270453-d84bbe12-ce24-4b7a-94a2-319125ee3f11.jpg" width="50px" height="50px"/> 강민수 &nbsp; [기술블로그](https://velog.io/@minsu8834)
+<img src="https://user-images.githubusercontent.com/90169703/152270453-d84bbe12-ce24-4b7a-94a2-319125ee3f11.jpg" width="50px" height="50px"/> 강민수 &nbsp; [기술블로그](https://velog.io/@minsu8834),  [깃허브](https://github.com/minchodang)
 
-<img src="https://user-images.githubusercontent.com/90169703/152270576-9b3a2a21-dbbe-4294-ae58-56dfb67e12bb.jpg" width="50px" height="50px"/> 박태준 &nbsp; [기술블로그]()
+<img src="https://user-images.githubusercontent.com/90169703/152270576-9b3a2a21-dbbe-4294-ae58-56dfb67e12bb.jpg" width="50px" height="50px"/> 박태준 &nbsp; [기술블로그](),  [깃허브](https://github.com/TaeJoonPark)
 
 <풀스택>
 
-<img src="https://user-images.githubusercontent.com/90169703/152270561-f44068bf-81d4-4b65-9124-2dafdc96d0fc.jpg" width="50px" height="50px"/> 최종민 &nbsp; [기술블로그](https://quark21.tistory.com/category/Programming)
+<img src="https://user-images.githubusercontent.com/90169703/152270561-f44068bf-81d4-4b65-9124-2dafdc96d0fc.jpg" width="50px" height="50px"/> 최종민 &nbsp; [기술블로그](https://quark21.tistory.com/category/Programming),  [깃허브](https://github.com/quark4904/)
 
 <백엔드>
 
-<img src="https://user-images.githubusercontent.com/90169703/152270596-805d1d9c-07b0-4fee-9dfb-6cf6d9deff80.jpg" width="50px" height="50px"/> 정태영 &nbsp; [기술블로그](https://dev-taeyeong.github.io)
+<img src="https://user-images.githubusercontent.com/90169703/152270596-805d1d9c-07b0-4fee-9dfb-6cf6d9deff80.jpg" width="50px" height="50px"/> 정태영 &nbsp; [기술블로그](https://dev-taeyeong.github.io),  [깃허브](https://github.com/dev-taeyeong)
 
 <br>
 
