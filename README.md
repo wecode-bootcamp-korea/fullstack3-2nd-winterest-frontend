@@ -3,7 +3,7 @@
 ![Winterest-logo](https://user-images.githubusercontent.com/90169703/152731312-fdbc3a49-8155-4d26-9c8b-aad868c3045a.png)
 
 
-[winterest 영상 url]()
+[winterest 시연 영상 url]()
 
 ## Members
 
@@ -25,7 +25,7 @@
 
 ## Introduction
 
-대표적인 사진 기반 sns 사이트인 pinterest 사이트의 주요기능들을 모티브로 삼아 개발한 윈터레스트라는 sns 사이트 개발.
+대표적인 사진 기반 sns 사이트인 pinterest 사이트의 주요기능들을 모티브 삼아 sns 사이트 윈터레스트 개발.
 
 - 기간 : 22.01.17~ 22.01.28
 - 구성 : Front-end 2명, Full-stack 1명, Back-end 1명
