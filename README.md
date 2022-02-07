@@ -11,7 +11,7 @@
 
 <img src="https://user-images.githubusercontent.com/90169703/152270453-d84bbe12-ce24-4b7a-94a2-319125ee3f11.jpg" width="50px" height="50px"/> 강민수 &nbsp; [기술블로그](https://velog.io/@minsu8834),  [깃허브](https://github.com/minchodang)
 
-<img src="https://user-images.githubusercontent.com/90169703/152270576-9b3a2a21-dbbe-4294-ae58-56dfb67e12bb.jpg" width="50px" height="50px"/> 박태준 &nbsp; [기술블로그](),  [깃허브](https://github.com/TaeJoonPark)
+<img src="https://user-images.githubusercontent.com/90169703/152270576-9b3a2a21-dbbe-4294-ae58-56dfb67e12bb.jpg" width="50px" height="50px"/> 박태준 &nbsp; [기술블로그](https://velog.io/@tjpark1028),  [깃허브](https://github.com/TaeJoonPark)
 
 <풀스택>
 
@@ -27,7 +27,7 @@
 
 대표적인 사진 기반 sns 사이트인 pinterest 사이트의 주요기능들을 모티브 삼아 sns 사이트 윈터레스트 개발.
 
-- 기간 : 22.01.17~ 22.01.28
+- 기간 : 2주
 - 구성 : Front-end 2명, Full-stack 1명, Back-end 1명
 
 ### 레포지토리 주소
@@ -47,9 +47,9 @@
 
 ### Technologies
 
-- 공통
+<!-- - 공통
 
-<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=#181717"> <img src="https://img.shields.io/badge/visualstudiocode-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=#181717"> <img src="https://img.shields.io/badge/visualstudiocode-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white"> -->
 
 - Front-end
 
@@ -88,6 +88,15 @@
 
 <박태준>
 
+1. 윈(카드) 디테일 페이지 ui 및 기능 구현
+
+- 이미지 상세페이지 동적 기능(팔로우, 댓글+대댓글, 좋아요 기능, 저장/저장됨) 및 UI 구현
+- 유저 정보에 따라 다른 수정페이지 모달화면으로 구현
+- 태그 수정 기능 (enter 키와 마우스 클릭을 통해 추가/삭제 동작 디자인적으로 구현)
+
+2. 윈(카드) 업로드 페이지 ui 및 기능 구현
+- formData와 axios를 이용한 이미지 업로드 기능 및 이미지 미리보기 UI 구현
+
 <최종민>
 
 1. 홈 랜딩 페이지 nav UI 구현
@@ -124,6 +133,6 @@
 ### Contact US
 
 - 강민수 minsu910725@gmail.com
-- 박태준
+- 박태준 pinedelo30@gmail.com
 - 최종민 quark4904@gmail.com
 - 정태영 dev.taeyeong@gmail.com
