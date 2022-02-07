@@ -1,6 +1,7 @@
 # winterest
 
-![Winterest-logo-white](https://user-images.githubusercontent.com/90169703/152273792-02aa1b13-3ffb-451d-8f61-07a7a79f6584.png)
+![Winterest-logo](https://user-images.githubusercontent.com/90169703/152731312-fdbc3a49-8155-4d26-9c8b-aad868c3045a.png)
+
 
 [winterest 사이트 방문하기]()
 
