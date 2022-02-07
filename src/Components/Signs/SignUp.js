@@ -30,13 +30,15 @@ function SignUp() {
   const regexPw = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#?!@$%^&*-]).{8}/;
 
   const goToList = () => {
-    navigate('/list');
+    navigate('/win');
   };
+
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=6973596e70c32c934b3d23792b4fed05&redirect_uri=http://localhost:3000/user/kakao&response_type=code`;
 
   const signupLogic = () => {
     if (regexId.test(emailValue) && regexPw.test(pwValue)) {
       console.log(regexId.test(emailValue) && regexPw.test(pwValue));
-      fetch(`${process.env.REACT_APP_SERVER_HOST}/users/signup`, {
+      fetch(`${process.env.REACT_APP_SERVER_HOST}/user/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         mode: 'cors',
@@ -45,15 +47,42 @@ function SignUp() {
           email: emailValue,
           password: pwValue,
         }),
-      }).then(res => {
-        if (res.status === 201) {
-          alert('Winterest에 오신 것을 환영합니다😊');
-          goToList();
-        } else if (res.status === 409) {
-          setIsEmailVisibility(true);
-          setIsFormVisibility(false);
-        }
-      });
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.message === 'KEY_ERROR') {
+            setIsFormVisibility(true);
+            setIsEmailVisibility(false);
+          } else if (data.message === 'EXISTED_USER') {
+            setIsEmailVisibility(true);
+            setIsFormVisibility(false);
+          }
+
+          // if (data.message === 'CHECK YOUR EMAIL OR PASSWORD') {
+          //   setIsFormVisibility(true);
+          //   setIsEmailVisibility(false);
+          // }
+          else {
+            alert('Winterest에 오신 것을 환영합니다😊');
+            goToList();
+            console.log(data);
+            sessionStorage.setItem('token', data.token);
+            console.log(data.token);
+          }
+        })
+        .then(() => {
+          fetch(`${process.env.REACT_APP_SERVER_HOST}/board`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: sessionStorage.getItem('token'),
+            },
+            mode: 'cors',
+            body: JSON.stringify({
+              boardName: '보드',
+            }),
+          });
+        });
     } else {
       setIsFormVisibility(true);
       setIsEmailVisibility(false);
@@ -63,10 +92,10 @@ function SignUp() {
   return (
     <LoginWrapper>
       <LoginForm>
-        <Img src="/images/윈터레스트-001.png" alt="logo" />
+        {/* <Img src="/images/윈터레스트-001.png" alt="logo" /> */}
         <HeadingWrapper>
-          <Heading1>Winterest 에 오신 것을 환영</Heading1>
-          <Heading2>합니다</Heading2>
+          <Heading1>Winterest 에 오신 것을</Heading1>
+          <Heading2>환영합니다</Heading2>
         </HeadingWrapper>
         <IdContainer>
           <IdInput
@@ -112,7 +141,9 @@ function SignUp() {
             </LoginDefault>
           </DefaultLogin>
           <KakaoLoginWrapper>
-            <KakaoLogin type="button">카카오로 시작하기</KakaoLogin>
+            <KakaoLogin type="button">
+              <a href={KAKAO_AUTH_URL}>카카오로 시작하기</a>
+            </KakaoLogin>
           </KakaoLoginWrapper>
         </Buttons>
       </LoginForm>
@@ -128,11 +159,12 @@ const LoginWrapper = styled.div`
   width: fit-content;
   margin: 0 auto;
   margin-top: -65px;
+  padding-top: 100px;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  height: auto;
+  height: 450px;
 `;
 
 const LoginForm = styled.form`
@@ -154,6 +186,7 @@ const IdContainer = styled.div`
 `;
 
 const IdInput = styled.input`
+  padding-left: 20px;
   border: 1px solid rgb(221 221 221);
   border-radius: 16px;
   height: 30px;
@@ -166,6 +199,7 @@ const PwContainer = styled.div`
 `;
 
 const PwInput = styled.input`
+  padding-left: 20px;
   border: 1px solid rgb(221 221 221);
   border-radius: 16px;
   height: 30px;
@@ -178,6 +212,7 @@ const NameContainer = styled.div`
 `;
 
 const NameInput = styled.input`
+  padding-left: 20px;
   border: 1px solid rgb(221 221 221);
   border-radius: 16px;
   height: 30px;
@@ -188,7 +223,6 @@ const NameInput = styled.input`
 const AlertFormContainer = styled.section`
   margin-top: 10px;
   color: rgb(250, 128, 114);
-  set
 `;
 
 const AlertEmailContainer = styled.section`
@@ -205,6 +239,11 @@ const KakaoLogin = styled.button`
   height: 30px;
   width: 250px;
   border-width: 2px;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
 `;
 
 const LoginDefault = styled.button`
@@ -214,10 +253,14 @@ const LoginDefault = styled.button`
   height: 30px;
   width: 250px;
   border-width: 2px;
-  background-color: rgb(30 212 255);
+  background-color: gry;
 `;
 
-const KakaoLoginWrapper = styled.div``;
+const KakaoLoginWrapper = styled.div`
+  a {
+    all: unset;
+  }
+`;
 
 const HeadingWrapper = styled.div`
   margin-top: -20px;
@@ -237,7 +280,4 @@ const Heading2 = styled.h2`
 
 const DefaultLogin = styled.div``;
 
-// const SignUpButton = styled.div`
-//   margin-top: 50px;
-// `;
 export default SignUp;

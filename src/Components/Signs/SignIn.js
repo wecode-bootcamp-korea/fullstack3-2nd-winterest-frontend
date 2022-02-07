@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
 function SignIn({ change }) {
+  console.log(SignIn);
   const [emailValue, setEmailValue] = useState('');
   const [pwValue, setPwValue] = useState('');
   const [isVisibility, setIsVisibility] = useState(false);
-
   const handleEmailInput = e => {
     setEmailValue(e.target.value);
   };
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=6973596e70c32c934b3d23792b4fed05&redirect_uri=http://localhost:3000/user/kakao&response_type=code`;
 
   const handlePwInput = e => {
     setPwValue(e.target.value);
@@ -18,10 +20,12 @@ function SignIn({ change }) {
   const navigate = useNavigate();
 
   const goToList = () => {
-    navigate('/list');
+    navigate('/win');
   };
 
   const loginLogic = () => {
+    console.log('asdf');
+
     fetch(`${process.env.REACT_APP_SERVER_HOST}/user/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -33,6 +37,7 @@ function SignIn({ change }) {
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         if (data.message === 'INVALID_USER') {
           setIsVisibility(true);
         } else if (data.message === 'KEY_ERROR') {
@@ -48,10 +53,10 @@ function SignIn({ change }) {
   return (
     <LoginWrapper>
       <LoginForm>
-        <Img src="/images/윈터레스트-001.png" alt="logo" />
+        {/* <Img src="/images/윈터레스트-001.png" alt="logo" /> */}
         <HeadingWrapper>
-          <Heading1>Winterest 에 오신 것을 환영</Heading1>
-          <Heading2>합니다</Heading2>
+          <Heading1>Winterest 에 오신 것을</Heading1>
+          <Heading2>환영합니다</Heading2>
         </HeadingWrapper>
         <IdContainer>
           <IdInput
@@ -81,7 +86,9 @@ function SignIn({ change }) {
             </LoginDefault>
           </DefaultLogin>
           <KakaoLoginWrapper>
-            <KakaoLogin type="button">카카오로 시작하기</KakaoLogin>
+            <KakaoLogin type="button">
+              <a href={KAKAO_AUTH_URL}>카카오로 시작하기</a>
+            </KakaoLogin>
           </KakaoLoginWrapper>
           <SignUpButton>
             <h3 onClick={change}>아직 가입 안 하셨나요?</h3>
@@ -100,11 +107,12 @@ const LoginWrapper = styled.div`
   width: fit-content;
   margin: 0 auto;
   margin-top: -65px;
+  padding-top: 100px;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  height: auto;
+  height: 450px;
 `;
 
 const LoginForm = styled.form`
@@ -126,6 +134,7 @@ const IdContainer = styled.div`
 `;
 
 const IdInput = styled.input`
+  padding-left: 20px;
   border: 1px solid rgb(221 221 221);
   border-radius: 16px;
   height: 30px;
@@ -138,6 +147,7 @@ const PwContainer = styled.div`
 `;
 
 const PwInput = styled.input`
+  padding-left: 20px;
   border: 1px solid rgb(221 221 221);
   border-radius: 16px;
   height: 30px;
@@ -159,6 +169,11 @@ const KakaoLogin = styled.button`
   height: 30px;
   width: 250px;
   border-width: 2px;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
 `;
 
 const LoginDefault = styled.button`
@@ -168,10 +183,14 @@ const LoginDefault = styled.button`
   height: 30px;
   width: 250px;
   border-width: 2px;
-  background-color: rgb(30 212 255);
+  background-color: gry;
 `;
 
-const KakaoLoginWrapper = styled.div``;
+const KakaoLoginWrapper = styled.div`
+  a {
+    all: unset;
+  }
+`;
 
 const HeadingWrapper = styled.div`
   margin-top: -20px;
@@ -195,5 +214,9 @@ const SignUpButton = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 50px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 export default SignIn;
