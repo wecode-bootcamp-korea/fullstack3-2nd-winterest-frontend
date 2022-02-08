@@ -27,7 +27,6 @@ const DetailModal = ({ winData, setModifyModal }) => {
       .get(`${process.env.REACT_APP_SERVER_HOST}/board`, { headers })
       .then(function (res) {
         setBoardList(res.data.boardList);
-        console.log(boardList);
       });
   }, []);
 
@@ -74,7 +73,6 @@ const DetailModal = ({ winData, setModifyModal }) => {
           boardId: currentBoardId,
           winId: winData.id,
         };
-    console.log('Post Data: ', data);
     axios
       .put(putUrl, data, {
         headers,
@@ -108,13 +106,11 @@ const DetailModal = ({ winData, setModifyModal }) => {
       arr.push({ name: e.target.value });
       e.target.value = '';
       setTagList(arr);
-      console.log('tagList: ', tagList);
     }
   };
 
   return (
     <ModifyModal>
-      {/* {console.log(currentBoard)} */}
       <ModalArea>
         <ModalTitle>이 WIN 수정하기</ModalTitle>
         <ModifyArea>

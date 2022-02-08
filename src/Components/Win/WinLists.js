@@ -36,7 +36,6 @@ function WinLists({ src, content, winId, userNumber, winLike }) {
             <button className="close" onClick={openModal}>
               &times;
             </button>
-            {console.log(winId)}
             <BoardModal winId={winId} setIsOpen={setIsOpen} />
           </Model>
         ) : null}

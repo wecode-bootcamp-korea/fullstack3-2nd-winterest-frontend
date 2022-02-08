@@ -1,7 +1,7 @@
 import React from 'react';
 import { HeartFilled } from '@ant-design/icons';
 // import './likeButton.css';
-import styled, { StyledComponent } from 'styled-components';
+import styled from 'styled-components';
 
 function LikeButton({ like }) {
   return (
