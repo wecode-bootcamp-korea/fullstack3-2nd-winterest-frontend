@@ -27,15 +27,12 @@ const User = () => {
     setModalOpen(false);
   };
 
-  // const copyUrl = React.useRef();
-
   const headers = {
     Authorization: sessionStorage.getItem('token'),
   };
 
   useEffect(() => {
     axios
-      // .get('/datas/user.json')
       .get(`${process.env.REACT_APP_SERVER_HOST}/user/${params.userNumber}`, {
         headers,
       })

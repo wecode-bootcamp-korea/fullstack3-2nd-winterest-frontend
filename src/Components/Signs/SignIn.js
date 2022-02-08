@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import React from 'react';
 
 function SignIn({ change }) {
-  console.log(SignIn);
   const [emailValue, setEmailValue] = useState('');
   const [pwValue, setPwValue] = useState('');
   const [isVisibility, setIsVisibility] = useState(false);
@@ -24,8 +23,6 @@ function SignIn({ change }) {
   };
 
   const loginLogic = () => {
-    console.log('asdf');
-
     fetch(`${process.env.REACT_APP_SERVER_HOST}/user/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -37,7 +34,6 @@ function SignIn({ change }) {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         if (data.message === 'INVALID_USER') {
           setIsVisibility(true);
         } else if (data.message === 'KEY_ERROR') {
@@ -53,7 +49,6 @@ function SignIn({ change }) {
   return (
     <LoginWrapper>
       <LoginForm>
-        {/* <Img src="/images/윈터레스트-001.png" alt="logo" /> */}
         <HeadingWrapper>
           <Heading1>Winterest 에 오신 것을</Heading1>
           <Heading2>환영합니다</Heading2>

@@ -36,8 +36,6 @@ function BoardCreateModal({ setModalOpen }) {
                 type="text"
                 placeholder="보드명"
                 onChange={boardTextHandler}
-                // onChange={handleTagInput}
-                // onKeyPress={handleEnter}
               ></input>
             </div>
           </div>
@@ -66,12 +64,6 @@ const Title = styled.div`
   font-weight: 700;
   font-size: 30px;
 `;
-// const BoardName = styled.div`
-//   color: black;
-//   font-size: 20px;
-//   margin-left: 8%;
-//   margin-bottom: 3%;
-// `;
 
 const BoardWrapper = styled.div`
   display: flex;

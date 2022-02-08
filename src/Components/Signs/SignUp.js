@@ -37,7 +37,6 @@ function SignUp() {
 
   const signupLogic = () => {
     if (regexId.test(emailValue) && regexPw.test(pwValue)) {
-      console.log(regexId.test(emailValue) && regexPw.test(pwValue));
       fetch(`${process.env.REACT_APP_SERVER_HOST}/user/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -65,9 +64,7 @@ function SignUp() {
           else {
             alert('Winterest에 오신 것을 환영합니다😊');
             goToList();
-            console.log(data);
             sessionStorage.setItem('token', data.token);
-            console.log(data.token);
           }
         })
         .then(() => {

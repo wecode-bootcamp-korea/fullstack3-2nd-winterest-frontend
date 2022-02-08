@@ -15,20 +15,12 @@ import HeartButton from '../../Components/DetailLikebutton/DetailLikeButton';
 
 const WinDetail = () => {
   const params = useParams();
-  // const history = useHistory();
-  const { userId, winId } = useParams();
-
   const [winData, SetWinData] = useState('');
-
   const [winModal, setWinModal] = useState(false);
   const [modifyModal, setModifyModal] = useState(false);
-
   const [isAuthor, setIsAuthor] = useState(false);
-
   const [isSaved, setIsSaved] = useState(false);
-
   const [isOpen, setIsOpen] = useState(false);
-
   const [followCnt, setFollowCnt] = useState(0);
   const [isFollowed, setIsFollowed] = useState();
   const [isHeart, setIsHeart] = useState(false);
@@ -61,37 +53,19 @@ const WinDetail = () => {
     setModifyModal(true);
   };
 
-  // const saveWinHandler = () => {
-  //   const headers = {
-  //     'Content-type': 'application/json; charset=UTF-8',
-  //     Authorization: sessionStorage.getItem('token'),
-  //   };
-  //   axios.post(`${process.env.REACT_APP_SERVER_HOST}/win`, { headers });
-  // };
-
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_HOST}/win-like`, {
+    fetch(`${process.env.REACT_APP_SERVER_HOST}/win-like/${params.winId}`, {
       method: 'GET',
       headers: new Headers({
-        'Content-type': 'application/json; charset=UTF-8',
         Authorization: sessionStorage.getItem('token'),
       }),
       mode: 'cors',
-      body: JSON.stringify({
-        winId: winId,
-        userId: userId,
-      }),
     })
       .then(res => res.json())
       .then(data => {
-        setIsHeart(Boolean(data.isHeart));
+        setIsHeart(data.heart);
       });
-    // .then(res => res.json())
-    // .then(data => {
-    //   console.log(data);
-    //   setIsHeart(Boolean(data.likeWinQuantity === 0 ? false : true));
-    // });
-  }, [isHeart]);
+  }, []);
 
   const followingHandler = () => {
     const headers = {
@@ -108,13 +82,11 @@ const WinDetail = () => {
       })
       .then(() => {
         if (isFollowed) {
-          // console.log('true: ', followCnt + 1, isFollowed);
           setFollowCnt(followCnt - 1);
           setIsFollowed(false);
         } else {
           setFollowCnt(followCnt + 1);
           setIsFollowed(true);
-          // console.log('false: ', followCnt, isFollowed);
         }
       });
   };
@@ -132,7 +104,6 @@ const WinDetail = () => {
       Authorization: sessionStorage.getItem('token'),
     };
     axios
-      // .get('/datas/winDetail.json')
       .get(`${process.env.REACT_APP_SERVER_HOST}/win/${params.winId}`, {
         headers,
       })
@@ -157,12 +128,7 @@ const WinDetail = () => {
       ) : null}
       <Main>
         <Aside>
-          <FaArrowLeft
-            // onClick={() => {
-            //   history.goBack();
-            // }}
-            className="goBack"
-          />
+          <FaArrowLeft className="goBack" />
         </Aside>
         <Article>
           {winModal ? (

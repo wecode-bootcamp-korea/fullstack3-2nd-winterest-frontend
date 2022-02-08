@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import NavBarMain from '../../Components/NavBar/NavBarMain';
@@ -19,6 +19,8 @@ function List() {
   const [pageNumber, setPageNumber] = useState(1);
   const [tag, setTag] = useState('');
   const location = decodeURI(useLocation().search);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     setTag(location);
     setWinList([]);
@@ -30,7 +32,9 @@ function List() {
 
   // 스크롤 시 페이지 넘버 증가
   const scrollToEnd = () => {
-    setPageNumber(pageNumber + 1);
+    if (!loading) {
+      setPageNumber(pageNumber + 1);
+    }
   };
 
   // 리스트 패치
@@ -45,12 +49,13 @@ function List() {
       },
     )
       .then(res => res.json())
-      .then(data => setWinList([...winList, ...data.winList]));
-  }, [pageNumber, tag]);
+      .then(
+        data => (setLoading(true), setWinList([...winList, ...data.winList])),
+      );
+  }, [pageNumber, tag, loading]);
 
   const onScroll = e => {
     const { scrollHeight, scrollTop, clientHeight } = e.target.scrollingElement;
-    console.log(scrollTop);
     if (scrollTop + clientHeight === scrollHeight) {
       scrollToEnd();
     }

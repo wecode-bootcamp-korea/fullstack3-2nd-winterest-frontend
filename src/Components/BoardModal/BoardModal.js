@@ -3,14 +3,12 @@ import styled from 'styled-components';
 
 function BoardList({ boardName, winId, boardId, setIsOpen }) {
   function saveBoard() {
-    console.log(winId, boardId, boardName);
     fetch(`${process.env.REACT_APP_SERVER_HOST}/win/save`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: sessionStorage.getItem('token'),
       },
-      // headers: new Headers({ Authorization: sessionStorage.getItem('token') }),
       body: JSON.stringify({
         boardId: boardId,
         winId: winId,
@@ -80,7 +78,6 @@ function BoardModal({ winId, setIsOpen }) {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         setBoards(data.boardList);
       });
   }, []);
@@ -98,9 +95,6 @@ function BoardModal({ winId, setIsOpen }) {
         <span>내 보드 목록</span>
       </BoardText>
       <FullStoreContainer>
-        {/* <ImgContainer>
-          <img src="/images/윈터레스트-001.png" alt="board"></img>
-        </ImgContainer> */}
         {boards &&
           boards.map(board => {
             return (

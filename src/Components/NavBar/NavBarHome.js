@@ -11,7 +11,6 @@ function NavBarHome() {
   const [modalOpen, setModalOpen] = useState(false);
   const [changeForm, setChangeForm] = useState('signIn');
   const openModal = e => {
-    console.log(e);
     if (e.target.name === 'signIn') {
       setChangeForm('signIn');
     } else {

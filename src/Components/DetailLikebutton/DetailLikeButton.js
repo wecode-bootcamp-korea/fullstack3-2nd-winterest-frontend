@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 function HeartButton({ isHeart, setIsHeart, winId }) {
   const handleClickHeart = () => {
-    console.log(winId);
     fetch(`${process.env.REACT_APP_SERVER_HOST}/win-like`, {
       method: 'POST',
       headers: new Headers({
