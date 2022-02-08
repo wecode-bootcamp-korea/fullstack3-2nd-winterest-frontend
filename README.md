@@ -3,7 +3,9 @@
 ![Winterest-logo](https://user-images.githubusercontent.com/90169703/152731312-fdbc3a49-8155-4d26-9c8b-aad868c3045a.png)
 
 
-[winterest 시연 영상 url]()
+## 프로젝트 사이트 기능 구현 영상
+
+[winterest 구현 영상]()
 
 ## Members
 
@@ -30,20 +32,26 @@
 - 기간 : 2주
 - 구성 : Front-end 2명, Full-stack 1명, Back-end 1명
 
-### 레포지토리 주소
+## 레포지토리 주소
 
 - [Front-end Github](https://github.com/wecode-bootcamp-korea/fullstack3-2nd-winterest-frontend)
 - [Back-end Github](https://github.com/wecode-bootcamp-korea/fullstack3-2nd-winterest-backend)
 
-### Notion 프로젝트 소개
+## Notion 프로젝트 소개
 
-### 프로젝트 사이트 기능 구현 영상
+- [윈터레스트 노션 페이지](https://wecode.notion.site/winterest-0fe4898e90d2407897bff2e9dca89812)
 
-[winterest 구현 영상]()
-
-### DB modeling
+## DB modeling
 
 - winterest db 자료 구조
+
+![스크린샷 2022-02-08 오전 10 59 43](https://user-images.githubusercontent.com/90169703/152903563-2b2e7873-348a-4a1c-9a87-164ae2e465e6.png)
+
+
+## 사용한 라이브러리
+
+- react-masonry-css
+https://www.npmjs.com/package/react-masonry-css
 
 ### Technologies
 
