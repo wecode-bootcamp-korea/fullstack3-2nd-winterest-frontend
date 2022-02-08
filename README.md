@@ -2,7 +2,6 @@
 
 ![Winterest-logo](https://user-images.githubusercontent.com/90169703/152731312-fdbc3a49-8155-4d26-9c8b-aad868c3045a.png)
 
-
 ## 프로젝트 사이트 기능 구현 영상
 
 [winterest 구현 영상]()
@@ -11,17 +10,17 @@
 
 <프론트 엔드>
 
-<img src="https://user-images.githubusercontent.com/90169703/152270453-d84bbe12-ce24-4b7a-94a2-319125ee3f11.jpg" width="50px" height="50px"/> 강민수 &nbsp; [기술블로그](https://velog.io/@minsu8834),  [깃허브](https://github.com/minchodang)
+<img src="https://user-images.githubusercontent.com/90169703/152270453-d84bbe12-ce24-4b7a-94a2-319125ee3f11.jpg" width="50px" height="50px"/> 강민수 &nbsp; [기술블로그](https://velog.io/@minsu8834), [깃허브](https://github.com/minchodang)
 
-<img src="https://user-images.githubusercontent.com/90169703/152270576-9b3a2a21-dbbe-4294-ae58-56dfb67e12bb.jpg" width="50px" height="50px"/> 박태준 &nbsp; [기술블로그](https://velog.io/@tjpark1028),  [깃허브](https://github.com/TaeJoonPark)
+<img src="https://user-images.githubusercontent.com/90169703/152270576-9b3a2a21-dbbe-4294-ae58-56dfb67e12bb.jpg" width="50px" height="50px"/> 박태준 &nbsp; [기술블로그](https://velog.io/@tjpark1028), [깃허브](https://github.com/TaeJoonPark)
 
 <풀스택>
 
-<img src="https://user-images.githubusercontent.com/90169703/152270561-f44068bf-81d4-4b65-9124-2dafdc96d0fc.jpg" width="50px" height="50px"/> 최종민 &nbsp; [기술블로그](https://quark21.tistory.com/category/Programming),  [깃허브](https://github.com/quark4904/)
+<img src="https://user-images.githubusercontent.com/90169703/152270561-f44068bf-81d4-4b65-9124-2dafdc96d0fc.jpg" width="50px" height="50px"/> 최종민 &nbsp; [기술블로그](https://quark21.tistory.com/category/Programming), [깃허브](https://github.com/quark4904/)
 
 <백엔드>
 
-<img src="https://user-images.githubusercontent.com/90169703/152270596-805d1d9c-07b0-4fee-9dfb-6cf6d9deff80.jpg" width="50px" height="50px"/> 정태영 &nbsp; [기술블로그](https://dev-taeyeong.github.io),  [깃허브](https://github.com/dev-taeyeong)
+<img src="https://user-images.githubusercontent.com/90169703/152270596-805d1d9c-07b0-4fee-9dfb-6cf6d9deff80.jpg" width="50px" height="50px"/> 정태영 &nbsp; [기술블로그](https://dev-taeyeong.github.io), [깃허브](https://github.com/dev-taeyeong)
 
 <br>
 
@@ -47,11 +46,10 @@
 
 ![스크린샷 2022-02-08 오전 10 59 43](https://user-images.githubusercontent.com/90169703/152903563-2b2e7873-348a-4a1c-9a87-164ae2e465e6.png)
 
-
 ## 사용한 라이브러리
 
 - react-masonry-css
-https://www.npmjs.com/package/react-masonry-css
+  https://www.npmjs.com/package/react-masonry-css
 
 ### Technologies
 
@@ -103,6 +101,7 @@ https://www.npmjs.com/package/react-masonry-css
 - 태그 수정 기능 (enter 키와 마우스 클릭을 통해 추가/삭제 동작 디자인적으로 구현)
 
 2. 윈(카드) 업로드 페이지 ui 및 기능 구현
+
 - formData와 axios를 이용한 이미지 업로드 기능 및 이미지 미리보기 UI 구현
 
 <최종민>
@@ -119,6 +118,30 @@ https://www.npmjs.com/package/react-masonry-css
 [ Back-end ]
 
 <정태영>
+
+1. win(게시물) API(CRD) 구현
+
+- win create API와 aws S3를 연동(win 생성시 이미지 파일이 aws S3에 저장됨)
+- win delete API와 aws S3를 연동(win 삭제시 이미지 파일이 aws S3에서 삭제됨)
+- express-rate-limit을 사용한 DOS 공격 예방
+
+2. 댓글 API(CRUD) 구현
+
+- 재귀 호출을 이용한 대댓글 기능 구현
+
+3. 인가 시스템 구현
+
+- 같은 게시물이나 유저의 페이지를 보더라도 본인인지 여부에 따라 권한을 부여하거나 다른 정보를 보여줄 수 있도록 토큰을 이용한 인가 과정 구현
+
+4. 댓글 좋아요 API(CRD) 구현
+
+5. 보드(게시물 저장) API(CRUD) 구현
+
+- board를 본인만 수정, 삭제 할 수 있도록 인가 과정 구현
+
+6. 팔로우 API(CRD) 구현
+
+7. 관심사 API(CRD) 구현
 
 <최종민>
 
