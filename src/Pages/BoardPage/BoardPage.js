@@ -19,48 +19,56 @@ function BoardPage() {
   const [pageNumber, setPageNumber] = useState(1);
   const [loading, setLoading] = useState(false);
   const params = useParams();
-  const fetchWins = async pageNumber => {
-    const res = await fetch(
+
+  // 스크롤 시 페이지 넘버 증가
+  const scrollToEnd = () => {
+    if (!loading) {
+      setPageNumber(pageNumber + 1);
+    }
+  };
+
+  useEffect(() => {
+    fetch(
       `${process.env.REACT_APP_SERVER_HOST}/board/${params.boardId}?pagenumber=${pageNumber}`,
       {
-        headers: { Authorization: sessionStorage.getItem('token') },
-      },
-    );
-    const data = await res.json();
-    setLoading(true);
-    setBoardName(data.boardDetail.name);
-
-    if (data.boardDetail.wins) {
-      setBoardDetail(boardDetail.concat(data.boardDetail.wins));
-    }
-  };
-
-  useEffect(() => {
-    fetchWins(pageNumber);
-  }, [modalOpen, pageNumber]);
-
-  const loadMore = () => {
-    setPageNumber(prevPageNumber => prevPageNumber + 1);
-  };
-
-  const pageEnd = useRef();
-  useEffect(() => {
-    if (loading) {
-      const observer = new IntersectionObserver(
-        entries => {
-          if (entries[0].isIntersecting) {
-            loadMore();
-          }
+        method: 'GET',
+        headers: {
+          Authorization: sessionStorage.getItem('token'),
         },
-        { threshold: 1 },
+      },
+    )
+      .then(res => res.json())
+      .then(
+        data => (
+          setBoardName(data.boardDetail.name),
+          setLoading(true),
+          setBoardDetail([...boardDetail, ...data.boardDetail.wins])
+        ),
       );
-      observer.observe(pageEnd.current);
-    }
-  }, [loading]);
+  }, [pageNumber, loading]);
+
   const navigate = useNavigate();
   const goToDetail = wins => {
     navigate(`/win/${wins}`);
   };
+
+  const onScroll = e => {
+    const { scrollHeight, scrollTop, clientHeight } = e.target.scrollingElement;
+    if (scrollTop + clientHeight === scrollHeight) {
+      scrollToEnd();
+    }
+  };
+
+  // 무한스크롤 디바운스 추가
+  const debounce = (func, delay) => {
+    let timeoutId = null;
+    return (...arg) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(func.bind(null, ...arg), delay);
+    };
+  };
+  // 스크롤 이벤트 추가.
+  document.addEventListener('scroll', debounce(onScroll, 300));
 
   return (
     <>
@@ -79,7 +87,7 @@ function BoardPage() {
         <PinListContainer>
           <PinQuantity>핀 {boardDetail && boardDetail.length}개</PinQuantity>
           <Container>
-            {boardDetail &&
+            {boardDetail.length > 0 &&
               boardDetail.map(wins => {
                 return (
                   <FullContainer>
@@ -92,7 +100,6 @@ function BoardPage() {
                           alt="test"
                           onClick={() => goToDetail(wins.id)}
                         />
-                        {console.log(wins.id)}
                       </ImgContainer>
                     </Figure>
                   </FullContainer>
@@ -100,7 +107,7 @@ function BoardPage() {
               })}
             <div></div>
           </Container>
-          <Loading ref={pageEnd}>
+          <Loading>
             <LoadingBar src="/images/Winter.gif" alt="load" />
           </Loading>
         </PinListContainer>

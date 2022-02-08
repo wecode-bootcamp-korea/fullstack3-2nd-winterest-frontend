@@ -13,7 +13,6 @@ function Main() {
   const [changeForm, setChangeForm] = useState('signIn');
 
   const openModal = e => {
-    console.log(e);
     if (e.target.name === 'signIn') {
       setChangeForm('signIn');
     } else {
@@ -51,7 +50,6 @@ function Main() {
       `https://api.unsplash.com/photos/?client_id=${Access_Key}&page=${pageNumber}&per_page=20`,
     );
     const data = await res.json();
-    console.log(data);
     setWinMain(prev => [...prev, ...data]);
     setLoading(true);
   };

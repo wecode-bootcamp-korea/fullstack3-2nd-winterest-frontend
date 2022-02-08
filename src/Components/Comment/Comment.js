@@ -21,11 +21,9 @@ const Comment = ({ winId }) => {
 
   useEffect(() => {
     axios
-      // .get('/datas/comments.json')
       .get(`${process.env.REACT_APP_SERVER_HOST}/comment/${winId}`, { headers })
       .then(function (res) {
         setCmtList(res.data);
-        console.log(cmtList);
       });
   }, [reCmt]);
 
@@ -51,7 +49,6 @@ const Comment = ({ winId }) => {
             피드백을 공유하거나 질문을 하거나 칭찬을 남겨주세요
           </CommentDesc>
           <WinAddComment reCmt={reCmt} setReCmt={setReCmt} winId={winId} />
-          {/* <WinAddComment winId={winId} /> */}
           {cmtList.comments?.map(cmtList => (
             <>
               <CommentList

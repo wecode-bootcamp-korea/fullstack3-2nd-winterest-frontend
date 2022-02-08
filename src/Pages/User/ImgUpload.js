@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled, { css } from 'styled-components';
-// import { BiDotsHorizontalRounded } from 'react-icons/bi';
 import { HiArrowCircleUp } from 'react-icons/hi';
 import { FaTrash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -73,7 +72,6 @@ const ImgUpload = () => {
 
       setTag(arr);
     }
-    console.log('tag: ', tag);
   };
 
   const postHandler = () => {
