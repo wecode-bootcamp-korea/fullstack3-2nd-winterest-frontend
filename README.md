@@ -4,7 +4,7 @@
 
 ## 프로젝트 사이트 기능 구현 영상
 
-[winterest 구현 영상]()
+[winterest 구현 영상](https://youtu.be/sfeJfl8CoCw)
 
 ## Members
 
