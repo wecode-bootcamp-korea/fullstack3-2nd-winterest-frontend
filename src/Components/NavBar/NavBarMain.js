@@ -6,8 +6,24 @@ function NavBarMain() {
   const navigate = useNavigate();
   const [input, setInput] = useState('');
   const [inputEnter, setInputEnter] = useState(false);
+  const [userNumber, setUserNumber] = useState('');
 
-  useEffect(() => {}, []);
+  // useEffect(() => {
+  //   fetch(`${process.env.REACT_APP_SERVER_HOST}/user/info`, {
+  //     headers: { Authorization: sessionStorage.getItem('token') },
+  //     mode: 'cors',
+  //   })
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setUserNumber(data.userNumber);
+  //       console.log(data.userNumber);
+  //     });
+  // }, []);
+
+  // const handleClick = () => {
+  //   console.log(userNumber);
+  //   navigate(`/user/${userNumber}`);
+  // };
 
   const handleClick = () => {
     fetch(`${process.env.REACT_APP_SERVER_HOST}/user/info`, {
