@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import NavBarMain from '../../Components/NavBar/NavBarMain';
 import Modal from '../../Components/Modal/Modal';
 import BoardModifyModal from '../../Components/BoardModifyModal/BoardModifyModal';
+import WinLists from '../../Components/Win/WinLists';
 
 function BoardPage() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -19,63 +20,66 @@ function BoardPage() {
   const [pageNumber, setPageNumber] = useState(1);
   const [loading, setLoading] = useState(false);
   const params = useParams();
+  const [boardWins, setBoardWins] = useState(0);
 
-  // 스크롤 시 페이지 넘버 증가
-  const scrollToEnd = () => {
-    if (!loading) {
-      setPageNumber(pageNumber + 1);
-    }
+  const fetchWins = async pageNumber => {
+    const res = await fetch(
+      `${process.env.REACT_APP_SERVER_HOST}/board/${params.boardId}?pagenumber=${pageNumber}`,
+      {
+        headers: { Authorization: sessionStorage.getItem('token') },
+      },
+    );
+
+    const data = await res.json();
+    console.log(data);
+    setBoardName(data.boardDetail.name);
+    setBoardWins(data.boardDetail.wins.length);
+    setBoardDetail(boardDetail.concat(data.boardDetail.wins));
+    setLoading(true);
   };
 
   useEffect(() => {
-    fetch(
-      `${process.env.REACT_APP_SERVER_HOST}/board/${params.boardId}?pagenumber=${pageNumber}`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: sessionStorage.getItem('token'),
+    fetchWins(pageNumber);
+  }, [pageNumber]);
+
+  // console.log(boardWins);
+  const loadMore = () => {
+    if (boardDetail.length < boardWins) {
+      console.log(boardDetail.length);
+      console.log(pageNumber);
+    } else {
+      setPageNumber(prevPageNumber => prevPageNumber + 1);
+    }
+  };
+
+  const pageEnd = useRef();
+  useEffect(() => {
+    console.log(loading);
+    if (loading) {
+      const observer = new IntersectionObserver(
+        entries => {
+          if (entries[0].isIntersecting === true) {
+            console.log(entries[0]);
+            loadMore();
+          }
         },
-      },
-    )
-      .then(res => res.json())
-      .then(
-        data => (
-          setBoardName(data.boardDetail.name),
-          setLoading(true),
-          setBoardDetail([...boardDetail, ...data.boardDetail.wins])
-        ),
+        { threshold: 1 },
       );
-  }, [pageNumber, loading]);
+      observer.observe(pageEnd.current);
+    }
+  }, [loading]);
 
   const navigate = useNavigate();
   const goToDetail = wins => {
     navigate(`/win/${wins}`);
   };
 
-  const onScroll = e => {
-    const { scrollHeight, scrollTop, clientHeight } = e.target.scrollingElement;
-    if (scrollTop + clientHeight === scrollHeight) {
-      scrollToEnd();
-    }
-  };
-
-  // 무한스크롤 디바운스 추가
-  const debounce = (func, delay) => {
-    let timeoutId = null;
-    return (...arg) => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(func.bind(null, ...arg), delay);
-    };
-  };
-  // 스크롤 이벤트 추가.
-  document.addEventListener('scroll', debounce(onScroll, 300));
-
   return (
     <>
       <NavBarMain />
       <BoardPageContainer>
         <BoardName>
-          {boardName && boardName}
+          {boardName}
           <BoardModifyButton onClick={openModal}>수정</BoardModifyButton>
         </BoardName>
         <Modal open={modalOpen} close={closeModal}>
@@ -85,9 +89,9 @@ function BoardPage() {
           />
         </Modal>
         <PinListContainer>
-          <PinQuantity>핀 {boardDetail && boardDetail.length}개</PinQuantity>
+          <PinQuantity>핀 {boardDetail.length}개</PinQuantity>
           <Container>
-            {boardDetail.length > 0 &&
+            {boardDetail &&
               boardDetail.map(wins => {
                 return (
                   <FullContainer>
@@ -97,6 +101,7 @@ function BoardPage() {
                           className="img"
                           name="win"
                           src={wins.imageUrl}
+                          key={wins.createdAt}
                           alt="test"
                           onClick={() => goToDetail(wins.id)}
                         />
@@ -107,11 +112,14 @@ function BoardPage() {
               })}
             <div></div>
           </Container>
-          <Loading>
-            <LoadingBar src="/images/Winter.gif" alt="load" />
-          </Loading>
         </PinListContainer>
       </BoardPageContainer>
+      <LoadingBar
+        src="/images/Winter.gif"
+        alt="load"
+        ref={pageEnd}
+        onClick={loadMore}
+      />
     </>
   );
 }
@@ -163,10 +171,10 @@ const Container = styled.div`
   column-width: 300px;
   margin: 50px 50px;
 `;
-const Loading = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+// const Loading = styled.div`
+//   display: flex;
+//   justify-content: center;
+// `;
 const LoadingBar = styled.img``;
 
 const BoardModifyButton = styled.button`
